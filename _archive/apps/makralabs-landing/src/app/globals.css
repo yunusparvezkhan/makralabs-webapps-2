@@ -1,8 +1,0 @@
-@import "tailwindcss";
-
-/* Scan for Tailwind classes in the shared UI package */
-@source "../../../../packages/ui/src/**/*.{js,ts,jsx,tsx}";
-
-/* Import shared styles and Tailwind theme configuration */
-@import "@repo/styles/globals.css";
-@import "@repo/styles/tailwind-theme.css";

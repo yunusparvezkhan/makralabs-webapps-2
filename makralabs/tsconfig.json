@@ -1,0 +1,3 @@
+{
+  "extends": "@makralabs/tsconfig/base.json"
+}

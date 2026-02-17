@@ -1,0 +1,15 @@
+{
+  "name": "@makralabs/eslint-config",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./base": "./base.mjs",
+    "./next": "./next.mjs",
+    "./react": "./react.mjs"
+  },
+  "peerDependencies": {
+    "eslint": "^9",
+    "eslint-config-next": "^16"
+  }
+}
