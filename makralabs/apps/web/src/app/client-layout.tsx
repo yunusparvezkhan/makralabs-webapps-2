@@ -2,17 +2,29 @@
 
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { usePathname } from "next/navigation";
+import { DashboardAuthProvider } from "@/providers/dashboard-auth-provider";
 
 export default function ClientLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  const hideMarketingChrome =
+    pathname === "/dashboard" ||
+    pathname?.startsWith("/dashboard/") ||
+    pathname === "/login" ||
+    pathname === "/register" ||
+    pathname === "/auth/callback";
+
   return (
-    <div className="min-h-screen min-w-screen">
-      <Navbar />
-      {children}
-      <Footer />
-    </div>
+    <DashboardAuthProvider>
+      <div className="min-h-screen min-w-screen">
+        {!hideMarketingChrome ? <Navbar /> : null}
+        {children}
+        {!hideMarketingChrome ? <Footer /> : null}
+      </div>
+    </DashboardAuthProvider>
   );
 }
