@@ -1,0 +1,117 @@
+site:
+  title: Makra Docs
+  product: Makra SDK
+  description: Build AI applications on top of Makra’s memory, retrieval, and tool runtime.
+
+sections:
+  - id: getting-started
+    title: Getting started
+    pages:
+      - title: Overview
+        slug: getting-started
+        file: docs/getting-started/overview.md
+        description: What Makra is and how the SDK fits into an AI app.
+      - title: Quickstart
+        slug: getting-started/quickstart
+        file: docs/getting-started/quickstart.md
+        description: Ship a working “chat + memory” example in minutes.
+      - title: Installation
+        slug: getting-started/installation
+        file: docs/getting-started/installation.md
+        description: Add Makra to your project and verify your setup.
+      - title: Authentication
+        slug: getting-started/authentication
+        file: docs/getting-started/authentication.md
+        description: API keys, service tokens, and local development auth.
+      - title: Changelog
+        slug: getting-started/changelog
+        file: docs/getting-started/changelog.md
+        description: Notable changes to the SDK and platform.
+
+  - id: makra-features
+    title: Makra Features
+    pages:
+      - title: Memory & sessions
+        slug: makra-features/memory
+        file: docs/makra-features/memory.md
+        description: Persist conversation and task context with control.
+      - title: Retrieval pipelines
+        slug: makra-features/retrieval
+        file: docs/makra-features/retrieval.md
+        description: Turn noisy sources into minimal, high-signal context.
+      - title: Tools & function calling
+        slug: makra-features/tools
+        file: docs/makra-features/tools.md
+        description: Register tools, stream results, and enforce policies.
+      - title: Observability
+        slug: makra-features/observability
+        file: docs/makra-features/observability.md
+        description: Traces, spans, and “what did the model see?”.
+      - title: Safety & governance
+        slug: makra-features/safety
+        file: docs/makra-features/safety.md
+        description: Redaction, allowlists, and data lifecycle controls.
+
+  - id: run-local
+    title: Run in local
+    pages:
+      - title: Local development
+        slug: run-local
+        file: docs/run-local/local-development.md
+        description: Configure env vars and run the SDK locally.
+      - title: Docker compose
+        slug: run-local/docker-compose
+        file: docs/run-local/docker-compose.md
+        description: Spin up services for end-to-end testing.
+      - title: Debugging
+        slug: run-local/debugging
+        file: docs/run-local/debugging.md
+        description: Inspect requests, traces, and retrieval outputs.
+      - title: Testing & evaluation
+        slug: run-local/testing
+        file: docs/run-local/testing.md
+        description: Regression tests for prompts, tools, and RAG.
+
+  - id: api-references
+    title: API References
+    pages:
+      - title: SDK (Python)
+        slug: api-references/sdk
+        file: docs/api-references/sdk.md
+        description: Core client, options, and common calls.
+      - title: REST API
+        slug: api-references/rest
+        file: docs/api-references/rest.md
+        description: Endpoints, pagination, and idempotency.
+      - title: Webhooks
+        slug: api-references/webhooks
+        file: docs/api-references/webhooks.md
+        description: Event delivery and signature verification.
+      - title: Errors
+        slug: api-references/errors
+        file: docs/api-references/errors.md
+        description: Error codes and retry guidance.
+      - title: Rate limits
+        slug: api-references/rate-limits
+        file: docs/api-references/rate-limits.md
+        description: Quotas, backoff, and budgeted agents.
+
+  - id: other-docs
+    title: Other Docs
+    pages:
+      - title: FAQ
+        slug: other-docs/faq
+        file: docs/other-docs/faq.md
+        description: Common questions and practical answers.
+      - title: Glossary
+        slug: other-docs/glossary
+        file: docs/other-docs/glossary.md
+        description: Makra terminology for builders.
+      - title: Security
+        slug: other-docs/security
+        file: docs/other-docs/security.md
+        description: Secure-by-default patterns for AI apps.
+      - title: Contributing
+        slug: other-docs/contributing
+        file: docs/other-docs/contributing.md
+        description: How to propose changes to docs and SDK examples.
