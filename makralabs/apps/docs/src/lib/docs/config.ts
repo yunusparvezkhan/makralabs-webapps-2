@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { DocsConfig, DocsPage, DocsSection } from "./types";
+import type { DocsConfig, DocsPage, DocsSection, DocsSubsection } from "./types";
 
 const CONFIG_FILENAME = "docs-config.yaml";
 
@@ -27,34 +27,63 @@ function validateConfig(raw: unknown): DocsConfig {
     assertNonEmptyString(section?.id, `sections[${sectionIndex}].id`);
     assertNonEmptyString(section?.title, `sections[${sectionIndex}].title`);
 
-    const pages = section?.pages;
-    if (!Array.isArray(pages) || pages.length === 0) {
-      throw new Error(`Invalid docs config: sections[${sectionIndex}].pages must be a non-empty array.`);
+    const subsections = section?.sections;
+    if (!Array.isArray(subsections) || subsections.length === 0) {
+      throw new Error(`Invalid docs config: sections[${sectionIndex}].sections must be a non-empty array.`);
     }
 
-    const parsedPages: DocsPage[] = pages.map((page, pageIndex) => {
-      assertNonEmptyString(page?.title, `sections[${sectionIndex}].pages[${pageIndex}].title`);
-      assertNonEmptyString(page?.slug, `sections[${sectionIndex}].pages[${pageIndex}].slug`);
-      assertNonEmptyString(page?.file, `sections[${sectionIndex}].pages[${pageIndex}].file`);
+    const parsedSubsections: DocsSubsection[] = subsections.map((subsection, subsectionIndex) => {
+      assertNonEmptyString(subsection?.id, `sections[${sectionIndex}].sections[${subsectionIndex}].id`);
+      assertNonEmptyString(subsection?.title, `sections[${sectionIndex}].sections[${subsectionIndex}].title`);
+
+      const pages = subsection?.pages;
+      if (!Array.isArray(pages) || pages.length === 0) {
+        throw new Error(
+          `Invalid docs config: sections[${sectionIndex}].sections[${subsectionIndex}].pages must be a non-empty array.`,
+        );
+      }
+
+      const parsedPages: DocsPage[] = pages.map((page, pageIndex) => {
+        assertNonEmptyString(
+          page?.title,
+          `sections[${sectionIndex}].sections[${subsectionIndex}].pages[${pageIndex}].title`,
+        );
+        assertNonEmptyString(
+          page?.slug,
+          `sections[${sectionIndex}].sections[${subsectionIndex}].pages[${pageIndex}].slug`,
+        );
+        assertNonEmptyString(
+          page?.file,
+          `sections[${sectionIndex}].sections[${subsectionIndex}].pages[${pageIndex}].file`,
+        );
+
+        return {
+          title: page.title,
+          slug: page.slug.replace(/^\//, "").replace(/\/$/, ""),
+          file: page.file,
+          description: typeof page.description === "string" ? page.description : undefined,
+        };
+      });
 
       return {
-        title: page.title,
-        slug: page.slug.replace(/^\//, "").replace(/\/$/, ""),
-        file: page.file,
-        description: typeof page.description === "string" ? page.description : undefined,
+        id: subsection.id,
+        title: subsection.title,
+        pages: parsedPages,
       };
     });
 
-    return { id: section.id, title: section.title, pages: parsedPages };
+    return { id: section.id, title: section.title, sections: parsedSubsections };
   });
 
   const seenSlugs = new Set<string>();
   for (const section of parsedSections) {
-    for (const page of section.pages) {
-      if (seenSlugs.has(page.slug)) {
-        throw new Error(`Invalid docs config: duplicate slug "${page.slug}".`);
+    for (const subsection of section.sections) {
+      for (const page of subsection.pages) {
+        if (seenSlugs.has(page.slug)) {
+          throw new Error(`Invalid docs config: duplicate slug "${page.slug}".`);
+        }
+        seenSlugs.add(page.slug);
       }
-      seenSlugs.add(page.slug);
     }
   }
 
@@ -75,10 +104,33 @@ export async function loadDocsConfig(): Promise<DocsConfig> {
   return validateConfig(parsed);
 }
 
-export function findDocsPage(config: DocsConfig, slug: string): { section: DocsSection; page: DocsPage } | null {
+export function flattenDocsPages(config: DocsConfig): Array<{ section: DocsSection; subsection: DocsSubsection; page: DocsPage }> {
+  const pages: Array<{ section: DocsSection; subsection: DocsSubsection; page: DocsPage }> = [];
   for (const section of config.sections) {
-    const page = section.pages.find((p) => p.slug === slug);
-    if (page) return { section, page };
+    for (const subsection of section.sections) {
+      for (const page of subsection.pages) {
+        pages.push({ section, subsection, page });
+      }
+    }
+  }
+  return pages;
+}
+
+export function getSectionFirstPage(section: DocsSection): DocsPage | null {
+  const subsection = section.sections[0];
+  if (!subsection) return null;
+  return subsection.pages[0] ?? null;
+}
+
+export function findDocsPage(
+  config: DocsConfig,
+  slug: string,
+): { section: DocsSection; subsection: DocsSubsection; page: DocsPage } | null {
+  for (const section of config.sections) {
+    for (const subsection of section.sections) {
+      const page = subsection.pages.find((p) => p.slug === slug);
+      if (page) return { section, subsection, page };
+    }
   }
   return null;
 }

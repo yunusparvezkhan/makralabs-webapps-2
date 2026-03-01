@@ -89,7 +89,7 @@ export default function LoginPage() {
           {isSubmitting ? "Signing in..." : "Sign in"}
         </button>
 
-        <a className="dash-btn dash-btn-neutral" href={`${env.NEXT_PUBLIC_API_ORIGIN}/auth/google`}>
+        <a className="dash-btn dash-btn-neutral" href={`${env.REACT_APP_BACKEND_BASE_URL}/auth/google`}>
           Continue with Google
         </a>
       </form>

@@ -51,7 +51,7 @@ export function DocsTocClient({ selector = "#docs-content" }: { selector?: strin
 
   return (
     <aside className="docs-toc">
-      <div className="docs-card p-4">
+      <div className="p-1">
         <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-black/50">On this page</div>
         <div className="flex flex-col gap-1">
           {content.map((item) => (
@@ -59,7 +59,7 @@ export function DocsTocClient({ selector = "#docs-content" }: { selector?: strin
               key={item.id}
               href={`#${item.id}`}
               className={[
-                "rounded-lg px-2 py-1 text-sm text-black/70 hover:bg-black/5 hover:text-black",
+                "rounded-md px-2 py-1 text-sm text-black/70 hover:bg-black/5 hover:text-black",
                 item.depth === 3 ? "ml-3" : "",
               ].join(" ")}
             >

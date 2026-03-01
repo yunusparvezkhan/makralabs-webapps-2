@@ -17,7 +17,16 @@ export default async function DocsPage({ params }: { params: Promise<{ slug: str
   if (!resolved) notFound();
 
   const markdownPath = path.join(process.cwd(), resolved.page.file);
-  const markdown = await fs.readFile(markdownPath, "utf8");
+  let markdown = "";
+  try {
+    markdown = await fs.readFile(markdownPath, "utf8");
+  } catch (error) {
+    const fileReadError = error as NodeJS.ErrnoException;
+    if (fileReadError.code === "ENOENT") {
+      notFound();
+    }
+    throw error;
+  }
   const { html } = await renderMarkdown(markdown);
 
   return (
@@ -26,6 +35,7 @@ export default async function DocsPage({ params }: { params: Promise<{ slug: str
       activeSectionId={resolved.section.id}
       activeSlug={resolved.page.slug}
       sectionTitle={resolved.section.title}
+      subsectionTitle={resolved.subsection.title}
       pageTitle={resolved.page.title}
       html={html}
     />

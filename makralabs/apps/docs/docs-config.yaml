@@ -1,117 +1,203 @@
 site:
-  title: Makra Docs
-  product: Makra SDK
-  description: Build AI applications on top of Makra’s memory, retrieval, and tool runtime.
+    title: Makra Docs
+    product: Makra SDK
+    description: Build AI applications on top of Makra's memory, retrieval, and tool runtime.
 
 sections:
-  - id: getting-started
-    title: Getting started
-    pages:
-      - title: Overview
-        slug: getting-started
-        file: docs/getting-started/overview.md
-        description: What Makra is and how the SDK fits into an AI app.
-      - title: Quickstart
-        slug: getting-started/quickstart
-        file: docs/getting-started/quickstart.md
-        description: Ship a working “chat + memory” example in minutes.
-      - title: Installation
-        slug: getting-started/installation
-        file: docs/getting-started/installation.md
-        description: Add Makra to your project and verify your setup.
-      - title: Authentication
-        slug: getting-started/authentication
-        file: docs/getting-started/authentication.md
-        description: API keys, service tokens, and local development auth.
-      - title: Changelog
-        slug: getting-started/changelog
-        file: docs/getting-started/changelog.md
-        description: Notable changes to the SDK and platform.
+    - id: getting-started
+      title: Getting Started
+      sections:
+          - id: introduction
+            title: Introduction
+            pages:
+                - title: Welcome
+                  slug: getting-started/introduction/welcome
+                  file: docs/getting-started/introduction/welcome.md
+                  description: Welcome to Makra Docs! Find out what you'll learn here.
+                - title: How This Guide Works
+                  slug: getting-started/introduction/how-this-guide-works
+                  file: docs/getting-started/introduction/how-this-guide-works.md
+                  description: Tips on navigating the docs and making the most of Makra.
+                - title: Meet the Makra Community
+                  slug: getting-started/introduction/community
+                  file: docs/getting-started/introduction/community.md
+                  description: Where to ask questions and get involved.
 
-  - id: makra-features
-    title: Makra Features
-    pages:
-      - title: Memory & sessions
-        slug: makra-features/memory
-        file: docs/makra-features/memory.md
-        description: Persist conversation and task context with control.
-      - title: Retrieval pipelines
-        slug: makra-features/retrieval
-        file: docs/makra-features/retrieval.md
-        description: Turn noisy sources into minimal, high-signal context.
-      - title: Tools & function calling
-        slug: makra-features/tools
-        file: docs/makra-features/tools.md
-        description: Register tools, stream results, and enforce policies.
-      - title: Observability
-        slug: makra-features/observability
-        file: docs/makra-features/observability.md
-        description: Traces, spans, and “what did the model see?”.
-      - title: Safety & governance
-        slug: makra-features/safety
-        file: docs/makra-features/safety.md
-        description: Redaction, allowlists, and data lifecycle controls.
+          - id: key-concepts
+            title: Key Concepts
+            pages:
+                - title: Core Ideas
+                  slug: getting-started/key-concepts/core-ideas
+                  file: docs/getting-started/key-concepts/core-ideas.md
+                  description: Definitions of memory, retrieval, and tools in Makra.
+                - title: Architecture Overview
+                  slug: getting-started/key-concepts/architecture
+                  file: docs/getting-started/key-concepts/architecture.md
+                  description: High-level diagram and why things are structured this way.
+                - title: How Apps Use Makra
+                  slug: getting-started/key-concepts/app-usage
+                  file: docs/getting-started/key-concepts/app-usage.md
+                  description: What it looks like to use Makra in your AI workflow.
 
-  - id: run-local
-    title: Run in local
-    pages:
-      - title: Local development
-        slug: run-local
-        file: docs/run-local/local-development.md
-        description: Configure env vars and run the SDK locally.
-      - title: Docker compose
-        slug: run-local/docker-compose
-        file: docs/run-local/docker-compose.md
-        description: Spin up services for end-to-end testing.
-      - title: Debugging
-        slug: run-local/debugging
-        file: docs/run-local/debugging.md
-        description: Inspect requests, traces, and retrieval outputs.
-      - title: Testing & evaluation
-        slug: run-local/testing
-        file: docs/run-local/testing.md
-        description: Regression tests for prompts, tools, and RAG.
+          - id: setup
+            title: Setup & Installation
+            pages:
+                - title: Prerequisites
+                  slug: getting-started/setup/prerequisites
+                  file: docs/getting-started/setup/prerequisites.md
+                  description: Supported systems, requirements, and things to check first.
+                - title: Installation Steps
+                  slug: getting-started/setup/installation
+                  file: docs/getting-started/setup/installation.md
+                  description: Detailed guide to installing the SDK.
+                - title: First Run
+                  slug: getting-started/setup/first-run
+                  file: docs/getting-started/setup/first-run.md
+                  description: Testing your installation and verifying everything is ready.
 
-  - id: api-references
-    title: API References
-    pages:
-      - title: SDK (Python)
-        slug: api-references/sdk
-        file: docs/api-references/sdk.md
-        description: Core client, options, and common calls.
-      - title: REST API
-        slug: api-references/rest
-        file: docs/api-references/rest.md
-        description: Endpoints, pagination, and idempotency.
-      - title: Webhooks
-        slug: api-references/webhooks
-        file: docs/api-references/webhooks.md
-        description: Event delivery and signature verification.
-      - title: Errors
-        slug: api-references/errors
-        file: docs/api-references/errors.md
-        description: Error codes and retry guidance.
-      - title: Rate limits
-        slug: api-references/rate-limits
-        file: docs/api-references/rate-limits.md
-        description: Quotas, backoff, and budgeted agents.
+    - id: features
+      title: Features
+      sections:
+          - id: memory
+            title: Memory & Sessions
+            pages:
+                - title: Using Memory
+                  slug: features/memory/using-memory
+                  file: docs/features/memory/using-memory.md
+                  description: Ways to set up and use persistent memory.
+                - title: Sessions Explained
+                  slug: features/memory/sessions
+                  file: docs/features/memory/sessions.md
+                  description: How Makra manages session data for users.
+                - title: Memory Management Tips
+                  slug: features/memory/memory-management
+                  file: docs/features/memory/memory-management.md
+                  description: Common strategies for optimal memory usage.
+          - id: retrieval
+            title: Retrieval Pipelines
+            pages:
+                - title: Custom Sources
+                  slug: features/retrieval/custom-sources
+                  file: docs/features/retrieval/custom-sources.md
+                  description: Adding custom knowledge sources.
+                - title: Retrieval Strategies
+                  slug: features/retrieval/strategies
+                  file: docs/features/retrieval/strategies.md
+                  description: How Makra finds and prioritizes useful information.
+                - title: Pipeline Configuration
+                  slug: features/retrieval/pipeline-configuration
+                  file: docs/features/retrieval/pipeline-configuration.md
+                  description: Configuring retrieval for your application.
+          - id: tools
+            title: Tools & Observability
+            pages:
+                - title: Registration
+                  slug: features/tools/registration
+                  file: docs/features/tools/registration.md
+                  description: How to register and manage your tools.
+                - title: Function Calling
+                  slug: features/tools/function-calling
+                  file: docs/features/tools/function-calling.md
+                  description: Makra's approach to safe function execution.
+                - title: Monitoring and Traces
+                  slug: features/tools/monitoring
+                  file: docs/features/tools/monitoring.md
+                  description: Inspect what's happening with observability features.
 
-  - id: other-docs
-    title: Other Docs
-    pages:
-      - title: FAQ
-        slug: other-docs/faq
-        file: docs/other-docs/faq.md
-        description: Common questions and practical answers.
-      - title: Glossary
-        slug: other-docs/glossary
-        file: docs/other-docs/glossary.md
-        description: Makra terminology for builders.
-      - title: Security
-        slug: other-docs/security
-        file: docs/other-docs/security.md
-        description: Secure-by-default patterns for AI apps.
-      - title: Contributing
-        slug: other-docs/contributing
-        file: docs/other-docs/contributing.md
-        description: How to propose changes to docs and SDK examples.
+    - id: api
+      title: API Reference
+      sections:
+          - id: python-sdk
+            title: Python SDK
+            pages:
+                - title: Getting Started with Python
+                  slug: api/python-sdk/getting-started
+                  file: docs/api/python-sdk/getting-started.md
+                  description: Install and connect using the Python SDK.
+                - title: Options & Client
+                  slug: api/python-sdk/options
+                  file: docs/api/python-sdk/options.md
+                  description: Set up the client and explore common options.
+                - title: Example Calls
+                  slug: api/python-sdk/examples
+                  file: docs/api/python-sdk/examples.md
+                  description: The most used calls, fully documented.
+          - id: rest
+            title: REST API
+            pages:
+                - title: Authentication
+                  slug: api/rest/auth
+                  file: docs/api/rest/auth.md
+                  description: How to authenticate with REST.
+                - title: Endpoints Overview
+                  slug: api/rest/endpoints
+                  file: docs/api/rest/endpoints.md
+                  description: All endpoints, inputs and outputs, dummy data.
+                - title: Pagination
+                  slug: api/rest/pagination
+                  file: docs/api/rest/pagination.md
+                  description: Standard pagination for lists.
+          - id: webhooks
+            title: Webhooks
+            pages:
+                - title: Subscribing to Events
+                  slug: api/webhooks/subscribe
+                  file: docs/api/webhooks/subscribe.md
+                  description: Subscribe to platform and application-level events.
+                - title: Payload Structure
+                  slug: api/webhooks/payload-structure
+                  file: docs/api/webhooks/payload-structure.md
+                  description: What the webhook payloads look like, with dummy example data.
+                - title: Security & Retries
+                  slug: api/webhooks/security-retries
+                  file: docs/api/webhooks/security-retries.md
+                  description: Signature verification and retry strategies.
+
+    - id: running-locally
+      title: Running Locally
+      sections:
+          - id: setup-local
+            title: Local Setup
+            pages:
+                - title: Setting Up Your Dev Environment
+                  slug: running-locally/setup-local/dev-environment
+                  file: docs/running-locally/setup-local/dev-environment.md
+                  description: Environment variables and initial setup for local development.
+                - title: Local Testing
+                  slug: running-locally/setup-local/testing
+                  file: docs/running-locally/setup-local/testing.md
+                  description: Running unit and integration tests on your machine.
+                - title: Mocks and Stubs
+                  slug: running-locally/setup-local/mocks-stubs
+                  file: docs/running-locally/setup-local/mocks-stubs.md
+                  description: Using fake data and local endpoints for rapid iteration.
+          - id: docker
+            title: Docker & Compose
+            pages:
+                - title: Dockerfile Examples
+                  slug: running-locally/docker/dockerfile-examples
+                  file: docs/running-locally/docker/dockerfile-examples.md
+                  description: Example Dockerfiles for Makra apps.
+                - title: Compose Recipes
+                  slug: running-locally/docker/compose-recipes
+                  file: docs/running-locally/docker/compose-recipes.md
+                  description: Compose and run all services together.
+                - title: Debugging in Docker
+                  slug: running-locally/docker/debugging
+                  file: docs/running-locally/docker/debugging.md
+                  description: Troubleshoot local containers with best practices.
+          - id: example-projects
+            title: Example Projects
+            pages:
+                - title: Dummy Chatbot
+                  slug: running-locally/example-projects/dummy-chatbot
+                  file: docs/running-locally/example-projects/dummy-chatbot.md
+                  description: Run a demo Q&A bot using Makra locally with sample config.
+                - title: File Uploader Demo
+                  slug: running-locally/example-projects/file-uploader
+                  file: docs/running-locally/example-projects/file-uploader.md
+                  description: Try this reference project for file handling and storage.
+                - title: Custom Retrieval
+                  slug: running-locally/example-projects/custom-retrieval
+                  file: docs/running-locally/example-projects/custom-retrieval.md
+                  description: End-to-end pipeline example with a mocked data source.

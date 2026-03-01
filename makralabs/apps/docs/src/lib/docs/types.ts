@@ -10,6 +10,12 @@ export type DocsConfig = {
 export type DocsSection = {
   id: string;
   title: string;
+  sections: DocsSubsection[];
+};
+
+export type DocsSubsection = {
+  id: string;
+  title: string;
   pages: DocsPage[];
 };
 
@@ -25,4 +31,3 @@ export type DocsTocItem = {
   title: string;
   id: string;
 };
-

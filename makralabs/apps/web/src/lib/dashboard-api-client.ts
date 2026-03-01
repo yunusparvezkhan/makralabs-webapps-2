@@ -57,7 +57,9 @@ function buildHeaders(options: DashboardRequestOptions, auth?: DashboardAuthHead
 }
 
 async function request<T>(path: string, options: DashboardRequestOptions = {}, auth?: DashboardAuthHeaderOptions): Promise<T> {
-  const response = await fetch(`${env.NEXT_PUBLIC_API_ORIGIN}${path}`, {
+  const url = new URL(path, env.REACT_APP_BACKEND_BASE_URL).toString();
+
+  const response = await fetch(url, {
     ...options,
     headers: buildHeaders(options, auth),
     body: options.body !== undefined ? JSON.stringify(options.body) : undefined

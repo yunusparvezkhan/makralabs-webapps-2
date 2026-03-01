@@ -2,6 +2,8 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+Copy `.env.local.example` to `.env.local` and point `REACT_APP_BACKEND_BASE_URL` at the backend (default is `http://localhost:8080`).
+
 First, run the development server:
 
 ```bash
