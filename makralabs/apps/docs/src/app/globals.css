@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "@makralabs/ui/styles.css";
 
 @font-face {
   font-family: "Open Sans";
@@ -103,18 +104,18 @@ a:hover {
 
 .docs-sidebar {
   position: sticky;
-  top: 112px;
+  top: 82px;
   align-self: start;
-  max-height: calc(100vh - 136px);
+  max-height: calc(100vh - 106px);
   overflow: auto;
   padding-right: 8px;
 }
 
 .docs-toc {
   position: sticky;
-  top: 112px;
+  top: 82px;
   align-self: start;
-  max-height: calc(100vh - 136px);
+  max-height: calc(100vh - 106px);
   overflow: auto;
 }
 
@@ -135,7 +136,7 @@ a:hover {
 
 .docs-prose h2,
 .docs-prose h3 {
-  scroll-margin-top: 120px;
+  scroll-margin-top: 90px;
   margin: 26px 0 10px;
   font-family: var(--font-open-sans, ui-sans-serif, system-ui, sans-serif);
 }
