@@ -20,12 +20,24 @@ export interface NavbarProps {
   }>;
 }
 
+export const DEFAULT_NAVBAR_LINKS: NavbarLink[] = [
+  { href: "http://localhost:3001/docs", label: "Documentation" },
+  { href: "/playground", label: "Playground" },
+  { href: "/pricing", label: "Pricing" },
+];
+
+export const DOCS_NAVBAR_LINKS: NavbarLink[] = [
+  { href: "http://localhost:3000", label: "Home" },
+  { href: "/playground", label: "Playground" },
+  { href: "/pricing", label: "Pricing" },
+];
+
 export function Navbar({
   logoUrl = "/logo/192x192.png",
   homeHref = "/",
   twitterUrl = "https://twitter.com/makralabs",
   githubUrl = "https://github.com/makralabs",
-  links = [],
+  links = DEFAULT_NAVBAR_LINKS,
   LinkComponent,
 }: NavbarProps) {
   const InternalLink = LinkComponent;

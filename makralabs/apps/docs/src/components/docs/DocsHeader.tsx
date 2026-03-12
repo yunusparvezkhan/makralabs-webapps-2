@@ -1,7 +1,7 @@
 import type { DocsConfig } from "@/lib/docs/types";
 import { Navbar } from "@/components/navbar";
 
-export function DocsHeader({ config: _config, activeSectionId: _activeSectionId }: { config: DocsConfig; activeSectionId?: string }) {
+export function DocsHeader({ config: _config }: { config: DocsConfig }) {
   return (
     <header className="sticky top-0 z-40 bg-white">
       <Navbar

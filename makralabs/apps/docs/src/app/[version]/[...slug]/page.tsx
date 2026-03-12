@@ -8,12 +8,12 @@ import { DocsShell } from "@/components/docs/DocsShell";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-export default async function DocsPage({ params }: { params: Promise<{ slug: string[] }> }) {
-  const { slug: segments } = await params;
+export default async function DocsPage({ params }: { params: Promise<{ version: string; slug: string[] }> }) {
+  const { version, slug: segments } = await params;
   const slug = segments.join("/");
 
   const config = await loadDocsConfig();
-  const resolved = findDocsPage(config, slug);
+  const resolved = findDocsPage(config, version, slug);
   if (!resolved) notFound();
 
   const markdownPath = path.join(process.cwd(), resolved.page.file);
@@ -27,15 +27,15 @@ export default async function DocsPage({ params }: { params: Promise<{ slug: str
     }
     throw error;
   }
+
   const { html } = await renderMarkdown(markdown);
 
   return (
     <DocsShell
       config={config}
-      activeSectionId={resolved.section.id}
+      version={resolved.version}
       activeSlug={resolved.page.slug}
       sectionTitle={resolved.section.title}
-      subsectionTitle={resolved.subsection.title}
       pageTitle={resolved.page.title}
       html={html}
     />

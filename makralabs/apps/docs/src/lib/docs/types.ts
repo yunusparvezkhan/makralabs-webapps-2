@@ -4,16 +4,31 @@ export type DocsConfig = {
     product?: string;
     description?: string;
   };
+  versions: DocsVersion[];
+};
+
+export type DocsVersion = {
+  id: string;
+  label: string;
+  tag?: string;
+  default?: boolean;
+  tabs?: DocsTab[];
+  primaryLinks?: DocsLinkItem[];
   sections: DocsSection[];
 };
 
-export type DocsSection = {
-  id: string;
+export type DocsTab = {
   title: string;
-  sections: DocsSubsection[];
+  href: string;
 };
 
-export type DocsSubsection = {
+export type DocsLinkItem = {
+  title: string;
+  href: string;
+  icon?: string;
+};
+
+export type DocsSection = {
   id: string;
   title: string;
   pages: DocsPage[];
@@ -24,6 +39,8 @@ export type DocsPage = {
   slug: string;
   file: string;
   description?: string;
+  icon?: string;
+  trailingChevron?: boolean;
 };
 
 export type DocsTocItem = {

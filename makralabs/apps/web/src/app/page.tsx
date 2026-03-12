@@ -7,13 +7,19 @@ import { python } from "@codemirror/lang-python";
 import { oneDark } from "@codemirror/theme-one-dark";
 import { highlightActiveLineGutter, lineNumbers } from "@codemirror/view";
 import { FiCopy, FiCheck } from "react-icons/fi";
-import Image from "next/image";
 import Script from "next/script";
 import {
     organizationSchema,
     websiteSchema,
     productSchema,
 } from "@/lib/structured-data";
+import dynamic from "next/dynamic";
+
+// Import BarHorizontal dynamically to avoid SSR issues (since it may use window)
+const BarHorizontal = dynamic(
+    () => import("@/components/charts/BarHorizontal").then((mod) => mod.default),
+    { ssr: false }
+);
 
 const subscribe = () => () => {};
 
@@ -36,6 +42,27 @@ repos_data = await makra.extract(
     },
 )
 `;
+
+const chartData = [
+    {
+        primaryLabel: "GitHub",
+        secondaryLabel: "API Extraction",
+        value: 100,
+        bgColor: "#5FB673",
+    },
+    {
+        primaryLabel: "Makra",
+        secondaryLabel: "Smart Memory Layer",
+        value: 85,
+        bgColor: "#2D7A56",
+    },
+    {
+        primaryLabel: "Browser",
+        secondaryLabel: "Raw HTML Scrape",
+        value: 50,
+        bgColor: "#AED8CA",
+    },
+];
 
 export default function Home() {
     const editorRef = useRef<HTMLDivElement>(null);
@@ -143,7 +170,6 @@ export default function Home() {
                             style={{
                                 fontSize: "3.25rem",
                                 lineHeight: 1.08,
-                                // color: "var(--makra-foreground-dark)",
                             }}
                         >
                             Save Your Tokens
@@ -152,38 +178,6 @@ export default function Home() {
                                 Using Makra
                             </span>
                         </h1>
-
-                        {/*{/* Pain Point + Value Prop */}
-                        {/*<div className="mt-6" style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
-                            <p
-                                className="font-medium"
-                                style={{
-                                    fontSize: "1.2rem",
-                                    color: "var(--makra-foreground-dark-100)",
-                                }}
-                            >
-                                
-                            </p>
-                            <p
-                                style={{
-                                    fontSize: "1.05rem",
-                                    color: "var(--makra-foreground-dark-200)",
-                                }}
-                            >
-                                Get the same quality results spending fewer tokens.
-                            </p>
-                        </div>*/}
-
-                        {/* Accent Divider */}
-                        {/*<div
-                            className="mt-6 mb-6"
-                            style={{
-                                width: "3rem",
-                                height: "2px",
-                                background: "var(--makra-primary-green)",
-                                opacity: 0.4,
-                            }}
-                        />*/}
 
                         {/* Description */}
                         <p
@@ -251,50 +245,26 @@ export default function Home() {
                         </p>
                     </div>
 
-                    {/* Right Half - Code Block */}
-                    {/*<div className="flex-1 flex items-center justify-center">
-                        <div
-                            className="rounded-lg p-6 shadow-lg"
-                            style={{
-                                backgroundColor: "var(--makra-background-dark-200)",
-                                maxWidth: "600px",
-                                maxHeight: "600px",
-                                overflow: "hidden",
-                            }}
-                        >
-                            <div ref={editorRef} />
-                        </div>
-                    </div>*/}
-
-                    {/* Right Half - Diagram */}
+                    {/* Right Half - Chart replaces SVG diagram */}
                     <div className="flex items-center justify-start lg:justify-center mb-8 lg:mb-0 order-1 lg:order-2">
                         <div
                             style={{
-                                overflow: "hidden",
+                                minWidth: 500,
                             }}
+                            className="w-full max-w-[375px] h-auto flex items-center justify-center"
                         >
-                            <Image
-                                src="/images/where-makra-fits.drawio.svg"
-                                alt="Where Makra fits in the workflow"
-                                width={600}
-                                height={400}
-                                className="w-[200px] h-auto lg:w-auto lg:h-[400px]"
+                            <BarHorizontal
+                                data={chartData}
+                                title="Comparing How You Retrieve Data"
+                                xAxisLabel="Extraction Efficiency"
+                                yAxisLabel=""
+                                width={700}
+                                height={420}
                             />
                         </div>
                     </div>
                 </div>
             </section>
-
-            {/*<section className="relative min-h-screen flex items-center justify-center px-6 border border-red-500">
-                <div className="h-full w-full flex flex-col items-center justify-center">
-                    <p>Home Page Section 2</p>
-                </div>
-            </section>
-            <section className="relative min-h-screen flex items-center justify-center px-6 border border-red-500">
-                <div className="h-full w-full flex flex-col items-center justify-center">
-                    <p>Home Page Section 3</p>
-                </div>
-            </section>*/}
         </>
     );
 }
