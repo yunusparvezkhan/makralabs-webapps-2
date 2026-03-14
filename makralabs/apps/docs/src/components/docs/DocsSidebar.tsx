@@ -1,7 +1,13 @@
+"use client";
+
 import Link from "next/link";
-import { buildDocsPath } from "@/lib/docs/config";
+import { useEffect, useMemo, useRef } from "react";
+import { usePathname } from "next/navigation";
 import type { DocsConfig, DocsLinkItem, DocsPage, DocsVersion } from "@/lib/docs/types";
+import { buildDocsPath, getDocsSlugFromPathname } from "@/lib/docs/utils";
 import { DocsVersionSwitcher } from "./DocsVersionSwitcher";
+
+const SIDEBAR_SCROLL_KEY_PREFIX = "docs-sidebar-scroll";
 
 function Icon({ name }: { name?: string }) {
   const common = {
@@ -169,10 +175,55 @@ export function DocsSidebar({
   version: DocsVersion;
   activeSlug?: string;
 }) {
+  const pathname = usePathname();
+  const sidebarRef = useRef<HTMLElement>(null);
   const tabs = version.tabs ?? [];
+  const storageKey = useMemo(() => `${SIDEBAR_SCROLL_KEY_PREFIX}:${version.id}`, [version.id]);
+  const resolvedActiveSlug = useMemo(
+    () => activeSlug ?? getDocsSlugFromPathname(pathname, version.id),
+    [activeSlug, pathname, version.id],
+  );
+
+  useEffect(() => {
+    const sidebar = sidebarRef.current;
+    if (!sidebar) return;
+
+    const persistScrollPosition = () => {
+      try {
+        window.sessionStorage.setItem(storageKey, String(sidebar.scrollTop));
+      } catch {
+        // Ignore storage failures and keep the sidebar usable.
+      }
+    };
+
+    persistScrollPosition();
+    sidebar.addEventListener("scroll", persistScrollPosition, { passive: true });
+
+    return () => {
+      persistScrollPosition();
+      sidebar.removeEventListener("scroll", persistScrollPosition);
+    };
+  }, [storageKey]);
+
+  useEffect(() => {
+    const sidebar = sidebarRef.current;
+    if (!sidebar) return;
+
+    try {
+      const savedScrollTop = window.sessionStorage.getItem(storageKey);
+      if (savedScrollTop === null) return;
+
+      const nextScrollTop = Number(savedScrollTop);
+      if (!Number.isFinite(nextScrollTop)) return;
+
+      sidebar.scrollTop = nextScrollTop;
+    } catch {
+      // Ignore storage failures and fall back to the default browser behavior.
+    }
+  }, [pathname, storageKey]);
 
   return (
-    <aside className="docs-sidebar">
+    <aside ref={sidebarRef} className="docs-sidebar">
       <div className="docs-sidebar-panel">
         {tabs.length > 0 ? (
           <div className="docs-tabs" role="tablist" aria-label="Documentation tabs">
@@ -190,7 +241,7 @@ export function DocsSidebar({
 
         <div className="docs-version-row">
           <span className="docs-version-tag">{version.tag ?? "Version"}</span>
-          <DocsVersionSwitcher config={config} currentVersion={version} activeSlug={activeSlug} />
+          <DocsVersionSwitcher config={config} currentVersion={version} activeSlug={resolvedActiveSlug} />
         </div>
 
         {version.primaryLinks?.length ? (
@@ -207,7 +258,7 @@ export function DocsSidebar({
               <h2 className="docs-section-title">{section.title}</h2>
               <div className="docs-section-pages">
                 {section.pages.map((page) => (
-                  <DocsPageLink key={page.slug} version={version} page={page} activeSlug={activeSlug} />
+                  <DocsPageLink key={page.slug} version={version} page={page} activeSlug={resolvedActiveSlug} />
                 ))}
               </div>
             </section>

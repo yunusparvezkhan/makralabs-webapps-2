@@ -1,7 +1,9 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useMemo } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import type { DocsConfig, DocsVersion } from "@/lib/docs/types";
+import { getDocsSlugFromPathname } from "@/lib/docs/utils";
 
 function buildDocsPath(versionId: string, slug?: string) {
   return slug ? `/${versionId}/${slug}` : `/${versionId}`;
@@ -16,7 +18,12 @@ export function DocsVersionSwitcher({
   currentVersion: DocsVersion;
   activeSlug?: string;
 }) {
+  const pathname = usePathname();
   const router = useRouter();
+  const resolvedActiveSlug = useMemo(
+    () => activeSlug ?? getDocsSlugFromPathname(pathname, currentVersion.id),
+    [activeSlug, currentVersion.id, pathname],
+  );
 
   return (
     <label className="docs-version-select-wrap">
@@ -27,8 +34,8 @@ export function DocsVersionSwitcher({
         onChange={(event) => {
           const versionId = event.target.value;
           const targetVersion = config.versions.find((version) => version.id === versionId) ?? currentVersion;
-          const matchingPage = activeSlug
-            ? targetVersion.sections.flatMap((section) => section.pages).find((page) => page.slug === activeSlug)
+          const matchingPage = resolvedActiveSlug
+            ? targetVersion.sections.flatMap((section) => section.pages).find((page) => page.slug === resolvedActiveSlug)
             : null;
           const fallbackPage = targetVersion.sections[0]?.pages[0];
           router.push(buildDocsPath(versionId, matchingPage?.slug ?? fallbackPage?.slug));
