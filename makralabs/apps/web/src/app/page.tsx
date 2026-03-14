@@ -143,8 +143,8 @@ export default function Home() {
                 }}
             />
 
-            <section className="relative min-h-screen flex items-center justify-center px-4 lg:px-6 py-12 lg:py-0">
-                <div className="max-w-[90%] lg:max-w-[80%] w-full flex flex-col lg:flex-row items-start lg:items-stretch justify-center gap-8 lg:gap-50">
+            <section className="relative min-h-screen flex items-center justify-center py-12 lg:py-0">
+                <div className="makra-page-width flex w-full flex-col items-start justify-center gap-8 lg:flex-row lg:items-stretch xl:gap-20">
                     {/* Left Half - Production Pitch */}
                     <div className="flex flex-col justify-center order-2 lg:order-1">
                         {/* Eyebrow */}
@@ -247,12 +247,7 @@ export default function Home() {
 
                     {/* Right Half - Chart replaces SVG diagram */}
                     <div className="flex items-center justify-start lg:justify-center mb-8 lg:mb-0 order-1 lg:order-2">
-                        <div
-                            style={{
-                                minWidth: 500,
-                            }}
-                            className="w-full max-w-[375px] h-auto flex items-center justify-center"
-                        >
+                        <div className="flex h-auto w-full max-w-[500px] items-center justify-center">
                             <BarHorizontal
                                 data={chartData}
                                 title="Comparing How You Retrieve Data"

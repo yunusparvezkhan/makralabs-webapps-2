@@ -105,16 +105,22 @@ a:hover {
   align-content: start;
   column-gap: 32px;
   row-gap: 0;
-  max-width: 1320px;
+  width: var(--makra-page-width);
+  max-width: var(--makra-page-width);
   min-height: calc(100vh - 66px);
   min-height: calc(100svh - 66px);
   margin: 0 auto;
-  padding: 20px 20px 44px;
+  padding: 10px 0 44px;
 }
 
 .docs-shell-tabs {
   grid-column: 1 / -1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
   width: 100%;
+  border-bottom: var(--docs-divider-border);
 }
 
 .docs-sidebar {
@@ -146,9 +152,10 @@ a:hover {
 
 .docs-tabs {
   display: flex;
-  width: 100%;
+  flex: 1 1 auto;
+  min-width: 0;
   gap: 20px;
-  border-bottom: var(--docs-divider-border);
+  flex-wrap: wrap;
 }
 
 .docs-tab {
@@ -175,6 +182,15 @@ a:hover {
   gap: 12px;
   margin-bottom: 18px;
   flex-wrap: wrap;
+}
+
+.docs-shell-version {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-bottom: 8px;
+  flex: 0 0 auto;
 }
 
 .docs-version-tag {
@@ -364,10 +380,6 @@ a:hover {
 
 .docs-toc__link--nested {
   margin-left: 12px;
-}
-
-.docs-toc__version-row {
-  margin-bottom: 0;
 }
 
 .docs-card {

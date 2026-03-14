@@ -5,6 +5,7 @@ import type { ComponentType, ReactNode } from "react";
 export interface NavbarLink {
   href: string;
   label: string;
+  newTab?: boolean;
 }
 
 export interface NavbarProps {
@@ -22,15 +23,15 @@ export interface NavbarProps {
 }
 
 export const DEFAULT_NAVBAR_LINKS: NavbarLink[] = [
-  { href: "http://localhost:3001/docs", label: "Documentation" },
-  { href: "/playground", label: "Playground" },
-  { href: "/pricing", label: "Pricing" },
+  { href: "http://localhost:3001", label: "Documentation", newTab: false },
+  { href: "http://localhost:3000/playground", label: "Playground", newTab: false },
+  { href: "http://localhost:3000/pricing", label: "Pricing", newTab: false },
 ];
 
 export const DOCS_NAVBAR_LINKS: NavbarLink[] = [
-  { href: "http://localhost:3000", label: "Homepage" },
-  { href: "/playground", label: "Playground" },
-  { href: "/pricing", label: "Pricing" },
+  { href: "http://localhost:3000", label: "Homepage", newTab: false },
+  { href: "http://localhost:3000/playground", label: "Playground", newTab: false },
+  { href: "http://localhost:3000/pricing", label: "Pricing", newTab: false },
 ];
 
 export function Navbar({
@@ -63,6 +64,40 @@ export function Navbar({
       </a>
     );
 
+  const renderNavbarLink = (link: NavbarLink) => {
+    if (link.newTab) {
+      return (
+        <a
+          key={link.href}
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="makra-navbar__link"
+        >
+          {link.label}
+        </a>
+      );
+    }
+
+    if (link.href.startsWith("http")) {
+      return (
+        <a key={link.href} href={link.href} className="makra-navbar__link">
+          {link.label}
+        </a>
+      );
+    }
+
+    return (
+      <span key={link.href}>
+        {renderInternalLink({
+          href: link.href,
+          className: "makra-navbar__link",
+          children: link.label,
+        })}
+      </span>
+    );
+  };
+
   return (
     <nav className="makra-navbar">
       <div className="makra-navbar__inner">
@@ -92,27 +127,7 @@ export function Navbar({
         <div className="makra-navbar__links">
           {links.length > 0 && (
             <div className="makra-navbar__links">
-              {links.map((link) =>
-                link.href.startsWith("http") ? (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="makra-navbar__link"
-                  >
-                    {link.label}
-                  </a>
-                ) : (
-                  <span key={link.href}>
-                    {renderInternalLink({
-                      href: link.href,
-                      className: "makra-navbar__link",
-                      children: link.label,
-                    })}
-                  </span>
-                ),
-              )}
+              {links.map((link) => renderNavbarLink(link))}
             </div>
           )}
         </div>

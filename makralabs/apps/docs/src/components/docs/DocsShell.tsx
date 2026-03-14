@@ -8,6 +8,7 @@ import { findVersion, getDefaultVersion, getDocsRouteFromPathname } from "@/lib/
 import type { DocsConfig } from "@/lib/docs/types";
 import { DocsHeader } from "./DocsHeader";
 import { DocsSidebar } from "./DocsSidebar";
+import { DocsVersionSwitcher } from "./DocsVersionSwitcher";
 
 export function DocsShell({
   config,
@@ -47,6 +48,15 @@ export function DocsShell({
                   {tab.title}
                 </Link>
               ))}
+            </div>
+
+            <div className="docs-shell-version">
+              <span className="docs-version-tag">{currentVersion.tag ?? "Version"}</span>
+              <DocsVersionSwitcher
+                config={config}
+                currentVersion={currentVersion}
+                activeSlug={route.docPath}
+              />
             </div>
           </div>
         ) : null}

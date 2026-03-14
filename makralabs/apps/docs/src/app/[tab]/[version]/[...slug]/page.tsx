@@ -85,12 +85,7 @@ export default async function DocsPage({
         </div>
       </article>
 
-      <DocsTocClient
-        selector="#docs-content"
-        config={config}
-        currentVersion={resolved.version}
-        activeSlug={resolved.page.path}
-      />
+      <DocsTocClient selector="#docs-content" />
     </>
   );
 }

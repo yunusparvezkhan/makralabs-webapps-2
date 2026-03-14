@@ -2,8 +2,6 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
-import type { DocsConfig, DocsVersion } from "@/lib/docs/types";
-import { DocsVersionSwitcher } from "./DocsVersionSwitcher";
 
 type TocItem = {
   depth: 2 | 3;
@@ -17,14 +15,8 @@ function normalizeText(text: string) {
 
 export function DocsTocClient({
   selector = "#docs-content",
-  config,
-  currentVersion,
-  activeSlug,
 }: {
   selector?: string;
-  config: DocsConfig;
-  currentVersion: DocsVersion;
-  activeSlug?: string;
 }) {
   const pathname = usePathname();
   const [toc, setToc] = useState<TocItem[]>([]);
@@ -63,13 +55,6 @@ export function DocsTocClient({
   return (
     <aside className="docs-toc">
       <div className="docs-toc__inner">
-        <div className="docs-toc__section">
-          <div className="docs-toc__title">Version</div>
-          <div className="docs-version-row docs-toc__version-row">
-            <span className="docs-version-tag">{currentVersion.tag ?? "Version"}</span>
-            <DocsVersionSwitcher config={config} currentVersion={currentVersion} activeSlug={activeSlug} />
-          </div>
-        </div>
         {content.length > 0 ? (
           <div className="docs-toc__section">
             <div className="docs-toc__title">On this page</div>
