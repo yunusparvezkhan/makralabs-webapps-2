@@ -8,5 +8,5 @@ import {
 } from "@makralabs/ui";
 
 export function Navbar(props: NavbarProps) {
-  return <SharedNavbar LinkComponent={Link} links={DOCS_NAVBAR_LINKS} {...props} />;
+  return <SharedNavbar {...props} LinkComponent={Link} links={DOCS_NAVBAR_LINKS} brandSuffix="Docs" />;
 }

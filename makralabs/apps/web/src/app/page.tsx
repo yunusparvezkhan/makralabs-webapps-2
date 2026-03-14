@@ -45,22 +45,22 @@ repos_data = await makra.extract(
 
 const chartData = [
     {
-        primaryLabel: "GitHub",
-        secondaryLabel: "API Extraction",
-        value: 100,
-        bgColor: "#5FB673",
+        primaryLabel: "RAG",
+        secondaryLabel: "11,624 tokens avg. per request",
+        value: 11624,
+        bgColor: "#FFF2CC",
+    },
+    {
+        primaryLabel: "Page-index",
+        secondaryLabel: "8,164 tokens avg. per request",
+        value: 8164,
+        bgColor: "#3788d8",
     },
     {
         primaryLabel: "Makra",
-        secondaryLabel: "Smart Memory Layer",
-        value: 85,
-        bgColor: "#2D7A56",
-    },
-    {
-        primaryLabel: "Browser",
-        secondaryLabel: "Raw HTML Scrape",
-        value: 50,
-        bgColor: "#AED8CA",
+        secondaryLabel: "4,224 tokens avg. per request",
+        value: 4224,
+        bgColor: "#5FB673",
     },
 ];
 

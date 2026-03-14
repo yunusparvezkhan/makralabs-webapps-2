@@ -24,29 +24,57 @@ export function getVersionFirstPage(version: DocsVersion): DocsPage | null {
   return section.pages[0] ?? null;
 }
 
-export function buildDocsPath(versionId: string, slug?: string): string {
-  return slug ? `/${versionId}/${slug}` : `/${versionId}`;
+export function getTabFirstPage(version: DocsVersion, tabId: string): DocsPage | null {
+  const section = version.sections.find((item) => item.tabId === tabId);
+  if (!section) return null;
+  return section.pages[0] ?? null;
 }
 
-export function getDocsSlugFromPathname(pathname: string, versionId: string): string | undefined {
+export function buildDocsPath(tabId: string, versionId: string, path?: string): string {
+  return path ? `/${tabId}/${versionId}/${path}` : `/${tabId}/${versionId}`;
+}
+
+export function getDocsRouteFromPathname(pathname: string): {
+  tabId?: string;
+  versionId?: string;
+  docPath?: string;
+} {
   const normalizedPath = pathname.split("?")[0]?.split("#")[0] ?? pathname;
   const segments = normalizedPath.split("/").filter(Boolean);
-  if (segments[0] !== versionId) return undefined;
-
-  const slug = segments.slice(1).join("/");
-  return slug || undefined;
+  const [tabId, versionId, ...docSegments] = segments;
+  return {
+    tabId,
+    versionId,
+    docPath: docSegments.length > 0 ? docSegments.join("/") : undefined,
+  };
 }
 
-export function findDocsPage(config: DocsConfig, versionId: string, slug: string): { version: DocsVersion; section: DocsSection; page: DocsPage } | null {
+export function getDocsPathFromPathname(pathname: string, tabId: string, versionId: string): string | undefined {
+  const route = getDocsRouteFromPathname(pathname);
+  if (route.tabId !== tabId || route.versionId !== versionId) return undefined;
+  return route.docPath;
+}
+
+export function findDocsPage(
+  config: DocsConfig,
+  tabId: string,
+  versionId: string,
+  path: string,
+): { version: DocsVersion; section: DocsSection; page: DocsPage } | null {
   const version = findVersion(config, versionId);
   if (!version) return null;
 
   for (const section of version.sections) {
-    const page = section.pages.find((item) => item.slug === slug);
+    if (section.tabId !== tabId) continue;
+    const page = section.pages.find((item) => item.path === path);
     if (page) {
       return { version, section, page };
     }
   }
 
   return null;
+}
+
+export function getDocsTabIdFromPathname(pathname: string): string | undefined {
+  return getDocsRouteFromPathname(pathname).tabId;
 }

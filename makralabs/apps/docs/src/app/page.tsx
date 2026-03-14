@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { buildDocsPath, getDefaultVersion, getVersionFirstPage, loadDocsConfig } from "@/lib/docs/config";
+import { buildDocsPath, getDefaultVersion, getTabFirstPage, loadDocsConfig } from "@/lib/docs/config";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -7,7 +7,12 @@ export const dynamic = "force-dynamic";
 export default async function DocsHomePage() {
   const config = await loadDocsConfig();
   const version = getDefaultVersion(config);
-  const firstPage = getVersionFirstPage(version);
+  const defaultTab = version.tabs?.[0];
 
-  redirect(buildDocsPath(version.id, firstPage?.slug));
+  if (!defaultTab) {
+    redirect("/");
+  }
+
+  const firstPage = getTabFirstPage(version, defaultTab.id);
+  redirect(buildDocsPath(defaultTab.id, version.id, firstPage?.path));
 }

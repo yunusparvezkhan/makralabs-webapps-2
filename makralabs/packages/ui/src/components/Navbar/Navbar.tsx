@@ -10,6 +10,7 @@ export interface NavbarLink {
 export interface NavbarProps {
   logoUrl?: string;
   homeHref?: string;
+  brandSuffix?: string;
   twitterUrl?: string;
   githubUrl?: string;
   links?: NavbarLink[];
@@ -27,7 +28,7 @@ export const DEFAULT_NAVBAR_LINKS: NavbarLink[] = [
 ];
 
 export const DOCS_NAVBAR_LINKS: NavbarLink[] = [
-  { href: "http://localhost:3000", label: "Home" },
+  { href: "http://localhost:3000", label: "Homepage" },
   { href: "/playground", label: "Playground" },
   { href: "/pricing", label: "Pricing" },
 ];
@@ -35,6 +36,7 @@ export const DOCS_NAVBAR_LINKS: NavbarLink[] = [
 export function Navbar({
   logoUrl = "/logo/192x192.png",
   homeHref = "/",
+  brandSuffix,
   twitterUrl = "https://twitter.com/makralabs",
   githubUrl = "https://github.com/makralabs",
   links = DEFAULT_NAVBAR_LINKS,
@@ -80,6 +82,7 @@ export function Navbar({
                 <div className="makra-navbar__title">
                   Makra
                   <span className="makra-navbar__title-accent">labs</span>
+                  {brandSuffix ? <span className="makra-navbar__title-suffix">{brandSuffix}</span> : null}
                 </div>
               </>
             ),

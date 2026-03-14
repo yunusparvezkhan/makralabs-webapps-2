@@ -13,30 +13,27 @@ export type DocsVersion = {
   tag?: string;
   default?: boolean;
   tabs?: DocsTab[];
-  primaryLinks?: DocsLinkItem[];
   sections: DocsSection[];
 };
 
 export type DocsTab = {
+  id: string;
   title: string;
   href: string;
-};
-
-export type DocsLinkItem = {
-  title: string;
-  href: string;
-  icon?: string;
 };
 
 export type DocsSection = {
   id: string;
+  tabId: string;
   title: string;
+  slug: string;
   pages: DocsPage[];
 };
 
 export type DocsPage = {
   title: string;
   slug: string;
+  path: string;
   file: string;
   description?: string;
   icon?: string;

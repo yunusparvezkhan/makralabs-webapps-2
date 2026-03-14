@@ -3,9 +3,8 @@
 import Link from "next/link";
 import { useEffect, useMemo, useRef } from "react";
 import { usePathname } from "next/navigation";
-import type { DocsConfig, DocsLinkItem, DocsPage, DocsVersion } from "@/lib/docs/types";
-import { buildDocsPath, getDocsSlugFromPathname } from "@/lib/docs/utils";
-import { DocsVersionSwitcher } from "./DocsVersionSwitcher";
+import type { DocsPage, DocsVersion } from "@/lib/docs/types";
+import { buildDocsPath, getDocsPathFromPathname } from "@/lib/docs/utils";
 
 const SIDEBAR_SCROLL_KEY_PREFIX = "docs-sidebar-scroll";
 
@@ -24,35 +23,6 @@ function Icon({ name }: { name?: string }) {
   };
 
   switch (name) {
-    case "play":
-      return (
-        <svg {...common}>
-          <path d="M5 3.5 12 8l-7 4.5Z" fill="currentColor" stroke="none" />
-        </svg>
-      );
-    case "blog":
-      return (
-        <svg {...common}>
-          <rect x="2.5" y="3" width="11" height="10" rx="1.5" />
-          <path d="M5 6.5h6M5 9h6M5 11.5h4" />
-        </svg>
-      );
-    case "community":
-      return (
-        <svg {...common}>
-          <path d="M5.5 8a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3ZM10.5 8a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z" />
-          <path d="M3 12c.6-1.4 1.7-2 3.3-2h3.4c1.6 0 2.7.6 3.3 2" />
-        </svg>
-      );
-    case "changelog":
-      return (
-        <svg {...common}>
-          <path d="M4 3.5h8M4 8h8M4 12.5h8" />
-          <circle cx="2.5" cy="3.5" r=".75" fill="currentColor" stroke="none" />
-          <circle cx="2.5" cy="8" r=".75" fill="currentColor" stroke="none" />
-          <circle cx="2.5" cy="12.5" r=".75" fill="currentColor" stroke="none" />
-        </svg>
-      );
     case "browser":
       return (
         <svg {...common}>
@@ -133,28 +103,22 @@ function Icon({ name }: { name?: string }) {
   }
 }
 
-function DocsPrimaryLink({ link }: { link: DocsLinkItem }) {
-  const isExternal = /^https?:\/\//.test(link.href);
+function DocsPageLink({
+  version,
+  currentTabId,
+  page,
+  activeSlug,
+}: {
+  version: DocsVersion;
+  currentTabId: string;
+  page: DocsPage;
+  activeSlug?: string;
+}) {
+  const active = page.path === activeSlug;
 
   return (
     <Link
-      href={link.href}
-      className="docs-utility-link"
-      target={isExternal ? "_blank" : undefined}
-      rel={isExternal ? "noreferrer" : undefined}
-    >
-      <Icon name={link.icon} />
-      <span>{link.title}</span>
-    </Link>
-  );
-}
-
-function DocsPageLink({ version, page, activeSlug }: { version: DocsVersion; page: DocsPage; activeSlug?: string }) {
-  const active = page.slug === activeSlug;
-
-  return (
-    <Link
-      href={buildDocsPath(version.id, page.slug)}
+      href={buildDocsPath(currentTabId, version.id, page.path)}
       className={["docs-page-link", active ? "docs-page-link-active" : ""].filter(Boolean).join(" ")}
     >
       <span className="docs-page-link-main">
@@ -167,21 +131,28 @@ function DocsPageLink({ version, page, activeSlug }: { version: DocsVersion; pag
 }
 
 export function DocsSidebar({
-  config,
   version,
+  currentTabId,
   activeSlug,
 }: {
-  config: DocsConfig;
   version: DocsVersion;
+  currentTabId?: string;
   activeSlug?: string;
 }) {
   const pathname = usePathname();
   const sidebarRef = useRef<HTMLElement>(null);
-  const tabs = version.tabs ?? [];
-  const storageKey = useMemo(() => `${SIDEBAR_SCROLL_KEY_PREFIX}:${version.id}`, [version.id]);
+  const resolvedCurrentTabId = useMemo(() => currentTabId ?? version.tabs?.[0]?.id ?? "", [currentTabId, version.tabs]);
+  const storageKey = useMemo(
+    () => `${SIDEBAR_SCROLL_KEY_PREFIX}:${version.id}:${resolvedCurrentTabId}`,
+    [resolvedCurrentTabId, version.id],
+  );
   const resolvedActiveSlug = useMemo(
-    () => activeSlug ?? getDocsSlugFromPathname(pathname, version.id),
-    [activeSlug, pathname, version.id],
+    () => activeSlug ?? getDocsPathFromPathname(pathname, resolvedCurrentTabId, version.id),
+    [activeSlug, pathname, resolvedCurrentTabId, version.id],
+  );
+  const visibleSections = useMemo(
+    () => version.sections.filter((section) => !resolvedCurrentTabId || section.tabId === resolvedCurrentTabId),
+    [resolvedCurrentTabId, version.sections],
   );
 
   useEffect(() => {
@@ -225,40 +196,19 @@ export function DocsSidebar({
   return (
     <aside ref={sidebarRef} className="docs-sidebar">
       <div className="docs-sidebar-panel">
-        {tabs.length > 0 ? (
-          <div className="docs-tabs" role="tablist" aria-label="Documentation tabs">
-            {tabs.map((tab, index) => (
-              <Link
-                key={`${tab.title}-${tab.href}`}
-                href={tab.href}
-                className={["docs-tab", index === 0 ? "docs-tab-active" : ""].join(" ")}
-              >
-                {tab.title}
-              </Link>
-            ))}
-          </div>
-        ) : null}
-
-        <div className="docs-version-row">
-          <span className="docs-version-tag">{version.tag ?? "Version"}</span>
-          <DocsVersionSwitcher config={config} currentVersion={version} activeSlug={resolvedActiveSlug} />
-        </div>
-
-        {version.primaryLinks?.length ? (
-          <div className="docs-utility-links">
-            {version.primaryLinks.map((link) => (
-              <DocsPrimaryLink key={link.title} link={link} />
-            ))}
-          </div>
-        ) : null}
-
         <div className="docs-section-list">
-          {version.sections.map((section) => (
+          {visibleSections.map((section) => (
             <section key={section.id} className="docs-section-block">
               <h2 className="docs-section-title">{section.title}</h2>
               <div className="docs-section-pages">
                 {section.pages.map((page) => (
-                  <DocsPageLink key={page.slug} version={version} page={page} activeSlug={resolvedActiveSlug} />
+                  <DocsPageLink
+                    key={page.path}
+                    version={version}
+                    currentTabId={resolvedCurrentTabId}
+                    page={page}
+                    activeSlug={resolvedActiveSlug}
+                  />
                 ))}
               </div>
             </section>

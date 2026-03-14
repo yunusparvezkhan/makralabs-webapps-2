@@ -2,6 +2,8 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
+import type { DocsConfig, DocsVersion } from "@/lib/docs/types";
+import { DocsVersionSwitcher } from "./DocsVersionSwitcher";
 
 type TocItem = {
   depth: 2 | 3;
@@ -13,7 +15,17 @@ function normalizeText(text: string) {
   return text.replace(/\s+/g, " ").trim();
 }
 
-export function DocsTocClient({ selector = "#docs-content" }: { selector?: string }) {
+export function DocsTocClient({
+  selector = "#docs-content",
+  config,
+  currentVersion,
+  activeSlug,
+}: {
+  selector?: string;
+  config: DocsConfig;
+  currentVersion: DocsVersion;
+  activeSlug?: string;
+}) {
   const pathname = usePathname();
   const [toc, setToc] = useState<TocItem[]>([]);
 
@@ -47,26 +59,33 @@ export function DocsTocClient({ selector = "#docs-content" }: { selector?: strin
   }, [pathname, selector]);
 
   const content = useMemo(() => toc, [toc]);
-  if (content.length === 0) return null;
 
   return (
     <aside className="docs-toc">
-      <div className="p-1">
-        <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-black/50">On this page</div>
-        <div className="flex flex-col gap-1">
-          {content.map((item) => (
-            <a
-              key={item.id}
-              href={`#${item.id}`}
-              className={[
-                "rounded-md px-2 py-1 text-sm text-black/70 hover:bg-black/5 hover:text-black",
-                item.depth === 3 ? "ml-3" : "",
-              ].join(" ")}
-            >
-              {item.title}
-            </a>
-          ))}
+      <div className="docs-toc__inner">
+        <div className="docs-toc__section">
+          <div className="docs-toc__title">Version</div>
+          <div className="docs-version-row docs-toc__version-row">
+            <span className="docs-version-tag">{currentVersion.tag ?? "Version"}</span>
+            <DocsVersionSwitcher config={config} currentVersion={currentVersion} activeSlug={activeSlug} />
+          </div>
         </div>
+        {content.length > 0 ? (
+          <div className="docs-toc__section">
+            <div className="docs-toc__title">On this page</div>
+            <div className="docs-toc__list">
+              {content.map((item) => (
+                <a
+                  key={item.id}
+                  href={`#${item.id}`}
+                  className={["docs-toc__link", item.depth === 3 ? "docs-toc__link--nested" : ""].filter(Boolean).join(" ")}
+                >
+                  {item.title}
+                </a>
+              ))}
+            </div>
+          </div>
+        ) : null}
       </div>
     </aside>
   );

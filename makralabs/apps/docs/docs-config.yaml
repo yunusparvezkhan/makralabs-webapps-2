@@ -1,7 +1,7 @@
 site:
-  title: Firecrawl Documentation
-  product: Firecrawl-style Docs
-  description: Boilerplate documentation with version-aware navigation, grouped chapters, and a left rail modeled after the provided reference.
+  title: Makra Documentation
+  product: Makra Docs
+  description: Product documentation with version-aware navigation, structured paths, code-first examples, and integration guides.
 
 versions:
   - id: v2
@@ -9,206 +9,543 @@ versions:
     tag: Latest
     default: true
     tabs:
-      - title: Documentation
-        href: /v2/quickstart
-      - title: SDKs
-        href: /v2/llm-sdks-and-frameworks
-      - title: Integrations
-        href: /v2/opencrawl
-    primaryLinks:
-      - title: Playground
-        href: https://example.com/playground
-        icon: play
-      - title: Blog
-        href: https://example.com/blog
-        icon: blog
-      - title: Community
-        href: https://example.com/community
-        icon: community
-      - title: Changelog
-        href: https://example.com/changelog
-        icon: changelog
+      - id: makra-sdk
+        title: Makra SDK
+        href: /makra-sdk/v2/getting-started/overview
+      - id: api-reference
+        title: API Reference
+        href: /api-reference/v2/authentication/server-api-keys
+      - id: examples
+        title: Examples
+        href: /examples/v2/web-apps/nextjs-support-agent
+      - id: integrations
+        title: Integrations
+        href: /integrations/v2/platforms/vercel
+      - id: contribution
+        title: Contribution
+        href: /contribution/v2/workflow/contributing
     sections:
-      - id: get-started
-        title: Get Started
+      - id: makra-sdk-getting-started
+        tab: makra-sdk
+        slug: getting-started
+        title: Getting Started
         pages:
+          - title: Overview
+            slug: overview
+            file: docs/v2/makra-sdk/getting-started/overview.md
           - title: Quickstart
             slug: quickstart
-            file: docs/v2/quickstart.md
-          - title: MCP Server
-            slug: mcp-server
-            file: docs/v2/mcp-server.md
-          - title: Skill + CLI
-            slug: skill-cli
-            file: docs/v2/skill-cli.md
-          - title: Advanced Scraping Guide
-            slug: advanced-scraping-guide
-            file: docs/v2/advanced-scraping-guide.md
-          - title: Rate Limits
-            slug: rate-limits
-            file: docs/v2/rate-limits.md
-          - title: Billing
-            slug: billing
-            file: docs/v2/billing.md
-      - id: new-features
-        title: New Features
+            file: docs/v2/makra-sdk/getting-started/quickstart.md
+      - id: makra-sdk-runtime
+        tab: makra-sdk
+        slug: runtime
+        title: Runtime
         pages:
-          - title: Browser Sandbox
-            slug: browser-sandbox
-            file: docs/v2/browser-sandbox.md
-            icon: browser
-          - title: Agent (Research Preview)
-            slug: agent-research-preview
-            file: docs/v2/agent-research-preview.md
-            icon: agent
-            trailingChevron: true
-      - id: standard-features
-        title: Standard Features
+          - title: Configuration
+            slug: configuration
+            file: docs/v2/makra-sdk/runtime/configuration.md
+          - title: Sessions
+            slug: sessions
+            file: docs/v2/makra-sdk/runtime/sessions.md
+      - id: api-reference-authentication
+        tab: api-reference
+        slug: authentication
+        title: Authentication
         pages:
-          - title: Scrape
-            slug: scrape
-            file: docs/v2/scrape.md
-            icon: scrape
-            trailingChevron: true
-          - title: Search
-            slug: search
-            file: docs/v2/search.md
-            icon: search
-          - title: Map
-            slug: map
-            file: docs/v2/map.md
-            icon: map
-          - title: Crawl
-            slug: crawl
-            file: docs/v2/crawl.md
-            icon: crawl
-      - id: developer-guides
-        title: Developer Guides
+          - title: Server API Keys
+            slug: server-api-keys
+            file: docs/v2/api-reference/authentication/server-api-keys.md
+      - id: api-reference-rest-api
+        tab: api-reference
+        slug: rest-api
+        title: REST API
         pages:
-          - title: OpenCrawl
-            slug: opencrawl
-            file: docs/v2/opencrawl.md
-            icon: opencrawl
-          - title: Full-Stack Templates
-            slug: full-stack-templates
-            file: docs/v2/full-stack-templates.md
-            icon: templates
-          - title: Usage Guides
-            slug: usage-guides
-            file: docs/v2/usage-guides.md
-            icon: guides
-            trailingChevron: true
-          - title: LLM SDKs and Frameworks
-            slug: llm-sdks-and-frameworks
-            file: docs/v2/llm-sdks-and-frameworks.md
-            icon: sdk
-            trailingChevron: true
-          - title: Cookbooks
-            slug: cookbooks
-            file: docs/v2/cookbooks.md
-            icon: cookbooks
-            trailingChevron: true
+          - title: Responses API
+            slug: responses-api
+            file: docs/v2/api-reference/rest-api/responses-api.md
+          - title: Errors
+            slug: errors
+            file: docs/v2/api-reference/rest-api/errors.md
+      - id: examples-web-apps
+        tab: examples
+        slug: web-apps
+        title: Web Apps
+        pages:
+          - title: Next.js Support Agent
+            slug: nextjs-support-agent
+            file: docs/v2/examples/web-apps/nextjs-support-agent.md
+      - id: examples-automation
+        tab: examples
+        slug: automation
+        title: Automation
+        pages:
+          - title: Background Sync
+            slug: background-sync
+            file: docs/v2/examples/automation/background-sync.md
+          - title: Python Worker
+            slug: python-worker
+            file: docs/v2/examples/automation/python-worker.md
+      - id: integrations-platforms
+        tab: integrations
+        slug: platforms
+        title: Platforms
+        pages:
+          - title: Vercel
+            slug: vercel
+            file: docs/v2/integrations/platforms/vercel.md
+          - title: Next.js
+            slug: nextjs
+            file: docs/v2/integrations/platforms/nextjs.md
+          - title: Webhooks
+            slug: webhooks
+            file: docs/v2/integrations/platforms/webhooks.md
+      - id: contribution-workflow
+        tab: contribution
+        slug: workflow
+        title: Workflow
+        pages:
+          - title: Contributing
+            slug: contributing
+            file: docs/v2/contribution/workflow/contributing.md
+          - title: Docs Style Guide
+            slug: docs-style-guide
+            file: docs/v2/contribution/workflow/docs-style-guide.md
+          - title: Release Checklist
+            slug: release-checklist
+            file: docs/v2/contribution/workflow/release-checklist.md
 
-  - id: v1
-    label: v1
-    tag: Legacy
+  - id: v1.1.0
+    label: v1.1.0
+    tag: Stable
     tabs:
-      - title: Documentation
-        href: /v1/quickstart
-      - title: SDKs
-        href: /v1/llm-sdks-and-frameworks
-      - title: Integrations
-        href: /v1/opencrawl
-    primaryLinks:
-      - title: Playground
-        href: https://example.com/playground
-        icon: play
-      - title: Blog
-        href: https://example.com/blog
-        icon: blog
-      - title: Community
-        href: https://example.com/community
-        icon: community
-      - title: Changelog
-        href: https://example.com/changelog
-        icon: changelog
+      - id: makra-sdk
+        title: Makra SDK
+        href: /makra-sdk/v1.1.0/getting-started/overview
+      - id: api-reference
+        title: API Reference
+        href: /api-reference/v1.1.0/authentication/server-api-keys
+      - id: examples
+        title: Examples
+        href: /examples/v1.1.0/web-apps/nextjs-support-agent
+      - id: integrations
+        title: Integrations
+        href: /integrations/v1.1.0/platforms/vercel
+      - id: contribution
+        title: Contribution
+        href: /contribution/v1.1.0/workflow/contributing
     sections:
-      - id: get-started
-        title: Get Started
+      - id: makra-sdk-getting-started
+        tab: makra-sdk
+        slug: getting-started
+        title: Getting Started
         pages:
+          - title: Overview
+            slug: overview
+            file: docs/v1.1.0/makra-sdk/getting-started/overview.md
           - title: Quickstart
             slug: quickstart
-            file: docs/v1/quickstart.md
-          - title: MCP Server
-            slug: mcp-server
-            file: docs/v1/mcp-server.md
-          - title: Skill + CLI
-            slug: skill-cli
-            file: docs/v1/skill-cli.md
-          - title: Advanced Scraping Guide
-            slug: advanced-scraping-guide
-            file: docs/v1/advanced-scraping-guide.md
-          - title: Rate Limits
-            slug: rate-limits
-            file: docs/v1/rate-limits.md
-          - title: Billing
-            slug: billing
-            file: docs/v1/billing.md
-      - id: new-features
-        title: New Features
+            file: docs/v1.1.0/makra-sdk/getting-started/quickstart.md
+      - id: makra-sdk-runtime
+        tab: makra-sdk
+        slug: runtime
+        title: Runtime
         pages:
-          - title: Browser Sandbox
-            slug: browser-sandbox
-            file: docs/v1/browser-sandbox.md
-            icon: browser
-          - title: Agent (Research Preview)
-            slug: agent-research-preview
-            file: docs/v1/agent-research-preview.md
-            icon: agent
-            trailingChevron: true
-      - id: standard-features
-        title: Standard Features
+          - title: Configuration
+            slug: configuration
+            file: docs/v1.1.0/makra-sdk/runtime/configuration.md
+          - title: Sessions
+            slug: sessions
+            file: docs/v1.1.0/makra-sdk/runtime/sessions.md
+      - id: api-reference-authentication
+        tab: api-reference
+        slug: authentication
+        title: Authentication
         pages:
-          - title: Scrape
-            slug: scrape
-            file: docs/v1/scrape.md
-            icon: scrape
-            trailingChevron: true
-          - title: Search
-            slug: search
-            file: docs/v1/search.md
-            icon: search
-          - title: Map
-            slug: map
-            file: docs/v1/map.md
-            icon: map
-          - title: Crawl
-            slug: crawl
-            file: docs/v1/crawl.md
-            icon: crawl
-      - id: developer-guides
-        title: Developer Guides
+          - title: Server API Keys
+            slug: server-api-keys
+            file: docs/v1.1.0/api-reference/authentication/server-api-keys.md
+      - id: api-reference-rest-api
+        tab: api-reference
+        slug: rest-api
+        title: REST API
         pages:
-          - title: OpenCrawl
-            slug: opencrawl
-            file: docs/v1/opencrawl.md
-            icon: opencrawl
-          - title: Full-Stack Templates
-            slug: full-stack-templates
-            file: docs/v1/full-stack-templates.md
-            icon: templates
-          - title: Usage Guides
-            slug: usage-guides
-            file: docs/v1/usage-guides.md
-            icon: guides
-            trailingChevron: true
-          - title: LLM SDKs and Frameworks
-            slug: llm-sdks-and-frameworks
-            file: docs/v1/llm-sdks-and-frameworks.md
-            icon: sdk
-            trailingChevron: true
-          - title: Cookbooks
-            slug: cookbooks
-            file: docs/v1/cookbooks.md
-            icon: cookbooks
-            trailingChevron: true
+          - title: Responses API
+            slug: responses-api
+            file: docs/v1.1.0/api-reference/rest-api/responses-api.md
+          - title: Errors
+            slug: errors
+            file: docs/v1.1.0/api-reference/rest-api/errors.md
+      - id: examples-web-apps
+        tab: examples
+        slug: web-apps
+        title: Web Apps
+        pages:
+          - title: Next.js Support Agent
+            slug: nextjs-support-agent
+            file: docs/v1.1.0/examples/web-apps/nextjs-support-agent.md
+      - id: examples-automation
+        tab: examples
+        slug: automation
+        title: Automation
+        pages:
+          - title: Background Sync
+            slug: background-sync
+            file: docs/v1.1.0/examples/automation/background-sync.md
+          - title: Python Worker
+            slug: python-worker
+            file: docs/v1.1.0/examples/automation/python-worker.md
+      - id: integrations-platforms
+        tab: integrations
+        slug: platforms
+        title: Platforms
+        pages:
+          - title: Vercel
+            slug: vercel
+            file: docs/v1.1.0/integrations/platforms/vercel.md
+          - title: Next.js
+            slug: nextjs
+            file: docs/v1.1.0/integrations/platforms/nextjs.md
+          - title: Webhooks
+            slug: webhooks
+            file: docs/v1.1.0/integrations/platforms/webhooks.md
+      - id: contribution-workflow
+        tab: contribution
+        slug: workflow
+        title: Workflow
+        pages:
+          - title: Contributing
+            slug: contributing
+            file: docs/v1.1.0/contribution/workflow/contributing.md
+          - title: Docs Style Guide
+            slug: docs-style-guide
+            file: docs/v1.1.0/contribution/workflow/docs-style-guide.md
+          - title: Release Checklist
+            slug: release-checklist
+            file: docs/v1.1.0/contribution/workflow/release-checklist.md
+
+  - id: v1.0.0
+    label: v1.0.0
+    tag: Stable
+    tabs:
+      - id: makra-sdk
+        title: Makra SDK
+        href: /makra-sdk/v1.0.0/getting-started/overview
+      - id: api-reference
+        title: API Reference
+        href: /api-reference/v1.0.0/authentication/server-api-keys
+      - id: examples
+        title: Examples
+        href: /examples/v1.0.0/web-apps/nextjs-support-agent
+      - id: integrations
+        title: Integrations
+        href: /integrations/v1.0.0/platforms/vercel
+      - id: contribution
+        title: Contribution
+        href: /contribution/v1.0.0/workflow/contributing
+    sections:
+      - id: makra-sdk-getting-started
+        tab: makra-sdk
+        slug: getting-started
+        title: Getting Started
+        pages:
+          - title: Overview
+            slug: overview
+            file: docs/v1.0.0/makra-sdk/getting-started/overview.md
+          - title: Quickstart
+            slug: quickstart
+            file: docs/v1.0.0/makra-sdk/getting-started/quickstart.md
+      - id: makra-sdk-runtime
+        tab: makra-sdk
+        slug: runtime
+        title: Runtime
+        pages:
+          - title: Configuration
+            slug: configuration
+            file: docs/v1.0.0/makra-sdk/runtime/configuration.md
+          - title: Sessions
+            slug: sessions
+            file: docs/v1.0.0/makra-sdk/runtime/sessions.md
+      - id: api-reference-authentication
+        tab: api-reference
+        slug: authentication
+        title: Authentication
+        pages:
+          - title: Server API Keys
+            slug: server-api-keys
+            file: docs/v1.0.0/api-reference/authentication/server-api-keys.md
+      - id: api-reference-rest-api
+        tab: api-reference
+        slug: rest-api
+        title: REST API
+        pages:
+          - title: Responses API
+            slug: responses-api
+            file: docs/v1.0.0/api-reference/rest-api/responses-api.md
+          - title: Errors
+            slug: errors
+            file: docs/v1.0.0/api-reference/rest-api/errors.md
+      - id: examples-web-apps
+        tab: examples
+        slug: web-apps
+        title: Web Apps
+        pages:
+          - title: Next.js Support Agent
+            slug: nextjs-support-agent
+            file: docs/v1.0.0/examples/web-apps/nextjs-support-agent.md
+      - id: examples-automation
+        tab: examples
+        slug: automation
+        title: Automation
+        pages:
+          - title: Background Sync
+            slug: background-sync
+            file: docs/v1.0.0/examples/automation/background-sync.md
+          - title: Python Worker
+            slug: python-worker
+            file: docs/v1.0.0/examples/automation/python-worker.md
+      - id: integrations-platforms
+        tab: integrations
+        slug: platforms
+        title: Platforms
+        pages:
+          - title: Vercel
+            slug: vercel
+            file: docs/v1.0.0/integrations/platforms/vercel.md
+          - title: Next.js
+            slug: nextjs
+            file: docs/v1.0.0/integrations/platforms/nextjs.md
+          - title: Webhooks
+            slug: webhooks
+            file: docs/v1.0.0/integrations/platforms/webhooks.md
+      - id: contribution-workflow
+        tab: contribution
+        slug: workflow
+        title: Workflow
+        pages:
+          - title: Contributing
+            slug: contributing
+            file: docs/v1.0.0/contribution/workflow/contributing.md
+          - title: Docs Style Guide
+            slug: docs-style-guide
+            file: docs/v1.0.0/contribution/workflow/docs-style-guide.md
+          - title: Release Checklist
+            slug: release-checklist
+            file: docs/v1.0.0/contribution/workflow/release-checklist.md
+
+  - id: v0.1.0-beta
+    label: v0.1.0-beta
+    tag: Beta
+    tabs:
+      - id: makra-sdk
+        title: Makra SDK
+        href: /makra-sdk/v0.1.0-beta/getting-started/overview
+      - id: api-reference
+        title: API Reference
+        href: /api-reference/v0.1.0-beta/authentication/server-api-keys
+      - id: examples
+        title: Examples
+        href: /examples/v0.1.0-beta/web-apps/nextjs-support-agent
+      - id: integrations
+        title: Integrations
+        href: /integrations/v0.1.0-beta/platforms/vercel
+      - id: contribution
+        title: Contribution
+        href: /contribution/v0.1.0-beta/workflow/contributing
+    sections:
+      - id: makra-sdk-getting-started
+        tab: makra-sdk
+        slug: getting-started
+        title: Getting Started
+        pages:
+          - title: Overview
+            slug: overview
+            file: docs/v0.1.0-beta/makra-sdk/getting-started/overview.md
+          - title: Quickstart
+            slug: quickstart
+            file: docs/v0.1.0-beta/makra-sdk/getting-started/quickstart.md
+      - id: makra-sdk-runtime
+        tab: makra-sdk
+        slug: runtime
+        title: Runtime
+        pages:
+          - title: Configuration
+            slug: configuration
+            file: docs/v0.1.0-beta/makra-sdk/runtime/configuration.md
+          - title: Sessions
+            slug: sessions
+            file: docs/v0.1.0-beta/makra-sdk/runtime/sessions.md
+      - id: api-reference-authentication
+        tab: api-reference
+        slug: authentication
+        title: Authentication
+        pages:
+          - title: Server API Keys
+            slug: server-api-keys
+            file: docs/v0.1.0-beta/api-reference/authentication/server-api-keys.md
+      - id: api-reference-rest-api
+        tab: api-reference
+        slug: rest-api
+        title: REST API
+        pages:
+          - title: Responses API
+            slug: responses-api
+            file: docs/v0.1.0-beta/api-reference/rest-api/responses-api.md
+          - title: Errors
+            slug: errors
+            file: docs/v0.1.0-beta/api-reference/rest-api/errors.md
+      - id: examples-web-apps
+        tab: examples
+        slug: web-apps
+        title: Web Apps
+        pages:
+          - title: Next.js Support Agent
+            slug: nextjs-support-agent
+            file: docs/v0.1.0-beta/examples/web-apps/nextjs-support-agent.md
+      - id: examples-automation
+        tab: examples
+        slug: automation
+        title: Automation
+        pages:
+          - title: Background Sync
+            slug: background-sync
+            file: docs/v0.1.0-beta/examples/automation/background-sync.md
+          - title: Python Worker
+            slug: python-worker
+            file: docs/v0.1.0-beta/examples/automation/python-worker.md
+      - id: integrations-platforms
+        tab: integrations
+        slug: platforms
+        title: Platforms
+        pages:
+          - title: Vercel
+            slug: vercel
+            file: docs/v0.1.0-beta/integrations/platforms/vercel.md
+          - title: Next.js
+            slug: nextjs
+            file: docs/v0.1.0-beta/integrations/platforms/nextjs.md
+          - title: Webhooks
+            slug: webhooks
+            file: docs/v0.1.0-beta/integrations/platforms/webhooks.md
+      - id: contribution-workflow
+        tab: contribution
+        slug: workflow
+        title: Workflow
+        pages:
+          - title: Contributing
+            slug: contributing
+            file: docs/v0.1.0-beta/contribution/workflow/contributing.md
+          - title: Docs Style Guide
+            slug: docs-style-guide
+            file: docs/v0.1.0-beta/contribution/workflow/docs-style-guide.md
+          - title: Release Checklist
+            slug: release-checklist
+            file: docs/v0.1.0-beta/contribution/workflow/release-checklist.md
+
+  - id: v0.0.1-beta
+    label: v0.0.1-beta
+    tag: Beta
+    tabs:
+      - id: makra-sdk
+        title: Makra SDK
+        href: /makra-sdk/v0.0.1-beta/getting-started/overview
+      - id: api-reference
+        title: API Reference
+        href: /api-reference/v0.0.1-beta/authentication/server-api-keys
+      - id: examples
+        title: Examples
+        href: /examples/v0.0.1-beta/web-apps/nextjs-support-agent
+      - id: integrations
+        title: Integrations
+        href: /integrations/v0.0.1-beta/platforms/vercel
+      - id: contribution
+        title: Contribution
+        href: /contribution/v0.0.1-beta/workflow/contributing
+    sections:
+      - id: makra-sdk-getting-started
+        tab: makra-sdk
+        slug: getting-started
+        title: Getting Started
+        pages:
+          - title: Overview
+            slug: overview
+            file: docs/v0.0.1-beta/makra-sdk/getting-started/overview.md
+          - title: Quickstart
+            slug: quickstart
+            file: docs/v0.0.1-beta/makra-sdk/getting-started/quickstart.md
+      - id: makra-sdk-runtime
+        tab: makra-sdk
+        slug: runtime
+        title: Runtime
+        pages:
+          - title: Configuration
+            slug: configuration
+            file: docs/v0.0.1-beta/makra-sdk/runtime/configuration.md
+          - title: Sessions
+            slug: sessions
+            file: docs/v0.0.1-beta/makra-sdk/runtime/sessions.md
+      - id: api-reference-authentication
+        tab: api-reference
+        slug: authentication
+        title: Authentication
+        pages:
+          - title: Server API Keys
+            slug: server-api-keys
+            file: docs/v0.0.1-beta/api-reference/authentication/server-api-keys.md
+      - id: api-reference-rest-api
+        tab: api-reference
+        slug: rest-api
+        title: REST API
+        pages:
+          - title: Responses API
+            slug: responses-api
+            file: docs/v0.0.1-beta/api-reference/rest-api/responses-api.md
+          - title: Errors
+            slug: errors
+            file: docs/v0.0.1-beta/api-reference/rest-api/errors.md
+      - id: examples-web-apps
+        tab: examples
+        slug: web-apps
+        title: Web Apps
+        pages:
+          - title: Next.js Support Agent
+            slug: nextjs-support-agent
+            file: docs/v0.0.1-beta/examples/web-apps/nextjs-support-agent.md
+      - id: examples-automation
+        tab: examples
+        slug: automation
+        title: Automation
+        pages:
+          - title: Background Sync
+            slug: background-sync
+            file: docs/v0.0.1-beta/examples/automation/background-sync.md
+          - title: Python Worker
+            slug: python-worker
+            file: docs/v0.0.1-beta/examples/automation/python-worker.md
+      - id: integrations-platforms
+        tab: integrations
+        slug: platforms
+        title: Platforms
+        pages:
+          - title: Vercel
+            slug: vercel
+            file: docs/v0.0.1-beta/integrations/platforms/vercel.md
+          - title: Next.js
+            slug: nextjs
+            file: docs/v0.0.1-beta/integrations/platforms/nextjs.md
+          - title: Webhooks
+            slug: webhooks
+            file: docs/v0.0.1-beta/integrations/platforms/webhooks.md
+      - id: contribution-workflow
+        tab: contribution
+        slug: workflow
+        title: Workflow
+        pages:
+          - title: Contributing
+            slug: contributing
+            file: docs/v0.0.1-beta/contribution/workflow/contributing.md
+          - title: Docs Style Guide
+            slug: docs-style-guide
+            file: docs/v0.0.1-beta/contribution/workflow/docs-style-guide.md
+          - title: Release Checklist
+            slug: release-checklist
+            file: docs/v0.0.1-beta/contribution/workflow/release-checklist.md

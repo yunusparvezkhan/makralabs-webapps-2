@@ -1,8 +1,14 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { DocsConfig, DocsLinkItem, DocsPage, DocsSection, DocsTab, DocsVersion } from "./types";
+import { fileURLToPath } from "node:url";
+import type { DocsConfig, DocsPage, DocsSection, DocsTab, DocsVersion } from "./types";
 
 const CONFIG_FILENAME = "docs-config.yaml";
+const DOCS_APP_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../..");
+
+export function resolveDocsAppPath(...segments: string[]): string {
+  return path.join(DOCS_APP_ROOT, ...segments);
+}
 
 function assertNonEmptyString(value: unknown, label: string): asserts value is string {
   if (typeof value !== "string" || value.trim().length === 0) {
@@ -17,30 +23,14 @@ function parseTabs(rawTabs: unknown, label: string): DocsTab[] | undefined {
   }
 
   return rawTabs.map((tab, index) => {
+    assertNonEmptyString(tab?.id, `${label}[${index}].id`);
     assertNonEmptyString(tab?.title, `${label}[${index}].title`);
     assertNonEmptyString(tab?.href, `${label}[${index}].href`);
 
     return {
+      id: tab.id,
       title: tab.title,
       href: tab.href,
-    };
-  });
-}
-
-function parsePrimaryLinks(rawLinks: unknown, label: string): DocsLinkItem[] | undefined {
-  if (rawLinks == null) return undefined;
-  if (!Array.isArray(rawLinks)) {
-    throw new Error(`Invalid docs config: ${label} must be an array.`);
-  }
-
-  return rawLinks.map((link, index) => {
-    assertNonEmptyString(link?.title, `${label}[${index}].title`);
-    assertNonEmptyString(link?.href, `${label}[${index}].href`);
-
-    return {
-      title: link.title,
-      href: link.href,
-      icon: typeof link.icon === "string" ? link.icon : undefined,
     };
   });
 }
@@ -52,7 +42,11 @@ function parseSections(rawSections: unknown, label: string): DocsSection[] {
 
   return rawSections.map((section, sectionIndex) => {
     assertNonEmptyString(section?.id, `${label}[${sectionIndex}].id`);
+    assertNonEmptyString(section?.tab, `${label}[${sectionIndex}].tab`);
+    assertNonEmptyString(section?.slug, `${label}[${sectionIndex}].slug`);
     assertNonEmptyString(section?.title, `${label}[${sectionIndex}].title`);
+    const sectionSlug = section.slug.replace(/^\//, "").replace(/\/$/, "");
+    const tabId = section.tab.replace(/^\//, "").replace(/\/$/, "");
 
     const rawPages = section?.pages;
     if (!Array.isArray(rawPages) || rawPages.length === 0) {
@@ -67,6 +61,7 @@ function parseSections(rawSections: unknown, label: string): DocsSection[] {
       return {
         title: page.title,
         slug: page.slug.replace(/^\//, "").replace(/\/$/, ""),
+        path: `${sectionSlug}/${page.slug.replace(/^\//, "").replace(/\/$/, "")}`,
         file: page.file,
         description: typeof page.description === "string" ? page.description : undefined,
         icon: typeof page.icon === "string" ? page.icon : undefined,
@@ -76,7 +71,9 @@ function parseSections(rawSections: unknown, label: string): DocsSection[] {
 
     return {
       id: section.id,
+      tabId,
       title: section.title,
+      slug: sectionSlug,
       pages,
     };
   });
@@ -105,7 +102,6 @@ function validateConfig(raw: unknown): DocsConfig {
       tag: typeof version.tag === "string" ? version.tag : undefined,
       default: version?.default === true,
       tabs: parseTabs(version?.tabs, `versions[${versionIndex}].tabs`),
-      primaryLinks: parsePrimaryLinks(version?.primaryLinks, `versions[${versionIndex}].primaryLinks`),
       sections: parseSections(version?.sections, `versions[${versionIndex}].sections`),
     };
   });
@@ -122,13 +118,19 @@ function validateConfig(raw: unknown): DocsConfig {
     }
     seenVersionIds.add(version.id);
 
-    const seenSlugs = new Set<string>();
+    const seenPaths = new Set<string>();
+    const tabIds = new Set(version.tabs?.map((tab) => tab.id) ?? []);
     for (const section of version.sections) {
+      if (tabIds.size > 0 && !tabIds.has(section.tabId)) {
+        throw new Error(
+          `Invalid docs config: section "${section.id}" references unknown tab "${section.tabId}" in version "${version.id}".`,
+        );
+      }
       for (const page of section.pages) {
-        if (seenSlugs.has(page.slug)) {
-          throw new Error(`Invalid docs config: duplicate slug "${page.slug}" in version "${version.id}".`);
+        if (seenPaths.has(page.path)) {
+          throw new Error(`Invalid docs config: duplicate path "${page.path}" in version "${version.id}".`);
         }
-        seenSlugs.add(page.slug);
+        seenPaths.add(page.path);
       }
     }
   }
@@ -144,7 +146,7 @@ function validateConfig(raw: unknown): DocsConfig {
 }
 
 export async function loadDocsConfig(): Promise<DocsConfig> {
-  const configPath = path.join(process.cwd(), CONFIG_FILENAME);
+  const configPath = resolveDocsAppPath(CONFIG_FILENAME);
   const content = await fs.readFile(configPath, "utf8");
   const parsed = parseYaml(content);
   return validateConfig(parsed);
@@ -155,8 +157,10 @@ export {
   findVersion,
   flattenDocsPages,
   getVersionFirstPage,
+  getTabFirstPage,
   buildDocsPath,
-  getDocsSlugFromPathname,
+  getDocsRouteFromPathname,
+  getDocsPathFromPathname,
   findDocsPage,
 } from "./utils";
 

@@ -46,6 +46,16 @@
   color: var(--makra-foreground-dark);
 }
 
+.makra-navbar__title-suffix {
+  margin-left: 8px;
+  font-family: var(--font-open-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--makra-foreground-dark-100);
+}
+
 .makra-navbar__links {
   display: flex;
   align-items: center;
@@ -70,6 +80,8 @@
 
 .makra-navbar__link:hover {
   color: var(--makra-primary-green);
+  text-decoration: underline;
+  text-underline-offset: 0.16em;
 }
 
 .makra-navbar__social {
@@ -164,6 +176,10 @@
 
   .makra-navbar__title {
     font-size: 1.35rem;
+  }
+
+  .makra-navbar__title-suffix {
+    font-size: 0.8rem;
   }
 
   .makra-footer__inner {
