@@ -192,7 +192,7 @@ export function Navbar({
                     <a href={authHref} className="makra-navbar__cta" style={{
                       marginLeft: 0
                     }}>
-                        {!isSignedIn ? "Dashboard" : "Sign In"}
+                        {isSignedIn ? "Dashboard" : "Sign In"}
                     </a>
                 </div>
             </div>

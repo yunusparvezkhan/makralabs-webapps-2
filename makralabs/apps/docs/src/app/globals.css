@@ -110,7 +110,7 @@ a:hover {
   min-height: calc(100vh - 66px);
   min-height: calc(100svh - 66px);
   margin: 0 auto;
-  padding: 10px 0 44px;
+  padding: 0px 0 44px;
 }
 
 .docs-shell-tabs {
