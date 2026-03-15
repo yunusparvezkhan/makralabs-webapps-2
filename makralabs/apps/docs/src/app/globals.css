@@ -49,7 +49,7 @@
   --makra-copy-size: 0.875rem;
   --docs-divider-color: rgba(17, 24, 39, 0.08);
   --docs-divider-border: 1px solid var(--docs-divider-color);
-  --docs-pane-top-offset: 22px;
+  --docs-pane-top-offset: 30px;
 
   /* Fonts (synced with homepage) */
   --font-open-sans: "Open Sans", ui-sans-serif, system-ui, sans-serif;

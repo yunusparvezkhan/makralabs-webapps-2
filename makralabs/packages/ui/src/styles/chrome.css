@@ -117,6 +117,35 @@
   color: inherit;
 }
 
+.makra-navbar__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  border-radius: 0.275rem;
+  background: var(--makra-primary-green);
+  color: #fff;
+  padding: 0px 10px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.makra-navbar__cta:hover,
+.makra-navbar__cta:focus-visible {
+  background: var(--makra-primary-green-100);
+  color: #fff;
+  text-decoration: none;
+  /* transform: translateY(-1px); */
+  box-shadow: 0 8px 18px rgba(65, 116, 58, 0.18);
+  outline: none;
+}
+
 .makra-navbar__icon {
   display: block;
   height: 20px;
