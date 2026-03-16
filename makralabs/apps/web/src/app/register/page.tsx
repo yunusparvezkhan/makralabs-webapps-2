@@ -1,12 +1,12 @@
 "use client";
 
+import { FormEvent, Suspense, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { FormEvent, useEffect, useMemo, useState } from "react";
 import { DashboardAuthPageShell } from "@/components/dashboard-auth-page-shell";
 import { useDashboardAuth } from "@/providers/dashboard-auth-provider";
 
-export default function RegisterPage() {
+function RegisterContent() {
   const { register, isAuthenticated, isReady } = useDashboardAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -94,5 +94,13 @@ export default function RegisterPage() {
         </button>
       </form>
     </DashboardAuthPageShell>
+  );
+}
+
+export default function RegisterPage() {
+  return (
+    <Suspense fallback={null}>
+      <RegisterContent />
+    </Suspense>
   );
 }

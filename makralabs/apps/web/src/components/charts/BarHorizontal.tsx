@@ -46,11 +46,22 @@ const PLOT_TOP_Y = 37;
 const PLOT_BOTTOM_Y = 137;
 const BAR_START_X = 60;
 const BAR_MAX_WIDTH = 270;
+const BAR_END_X = BAR_START_X + BAR_MAX_WIDTH;
 
 const FONT_FAMILY = "var(--font-open-sans, ui-sans-serif, system-ui, sans-serif)";
 const AXIS_STROKE = "#606060";
 const DEFAULT_BAR_FILL = "#d5e8d4";
 const EMPTY_LABEL = "No data";
+const CHART_TEXT_COLOR = "var(--makra-foreground-dark-200)";
+const INSIDE_LABEL_FONT_SIZE = 10;
+const OUTSIDE_LABEL_FONT_SIZE = 11.2;
+const AXIS_LABEL_FONT_SIZE = 11.2;
+const EMPTY_STATE_FONT_SIZE = 11.2;
+const BAR_HEIGHT_BOOST = 10;
+const DEFAULT_RENDER_HEIGHT = 420;
+const BAR_INSIDE_PADDING_X = 12;
+const MIN_BAR_VERTICAL_PADDING = 4;
+const MAX_BAR_VERTICAL_PADDING = BAR_INSIDE_PADDING_X / 2;
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max);
@@ -76,7 +87,7 @@ function pointsToPath(points: Point[], closed = false) {
   return path.join(" ");
 }
 
-function estimateTextWidth(text: string, fontSize = 12) {
+function estimateTextWidth(text: string, fontSize = INSIDE_LABEL_FONT_SIZE) {
   return text.length * fontSize * 0.56;
 }
 
@@ -246,23 +257,46 @@ export function BarHorizontal({
     maxValue ?? (values.length > 0 ? Math.max(0, ...values, 1) : 1);
 
   const domainSpan = resolvedMaxValue - resolvedMinValue || 1;
-  const zeroX =
-    BAR_START_X + ((0 - resolvedMinValue) / domainSpan) * BAR_MAX_WIDTH;
+  const verticalScale = height / DEFAULT_RENDER_HEIGHT;
+  const viewBoxHeight = VIEWBOX_HEIGHT * verticalScale;
+  const sy = (value: number) => value * verticalScale;
+  const axisOriginY = sy(AXIS_ORIGIN_Y);
+  const yAxisEndY = sy(Y_AXIS_END_Y);
+  const stackTopY = yAxisEndY;
+  const stackBottomY = axisOriginY;
+  const stackHeight = stackBottomY - stackTopY;
 
   const chartTitle = `${title}${xAxisLabel ? `, x-axis ${xAxisLabel}` : ""}${
     yAxisLabel ? `, y-axis ${yAxisLabel}` : ""
   }`;
 
-  const plotHeight = PLOT_BOTTOM_Y - PLOT_TOP_Y;
+  const gapCount = data.length + 1;
   const preferredGap = data.length > 3 ? 14 : 25;
-  const gap = data.length <= 1 ? 0 : preferredGap;
   const rawBarHeight =
     data.length === 0
       ? 32
-      : (plotHeight - gap * Math.max(data.length - 1, 0)) / data.length;
-  const barHeight = clamp(rawBarHeight, 18, 40);
-  const usedHeight = data.length * barHeight + Math.max(data.length - 1, 0) * gap;
-  const topOffset = PLOT_TOP_Y + Math.max((plotHeight - usedHeight) / 2, 0);
+      : (stackHeight - preferredGap * gapCount) / data.length + BAR_HEIGHT_BOOST;
+  const barVerticalPadding =
+    data.length === 0
+      ? MIN_BAR_VERTICAL_PADDING
+      : clamp(
+          (rawBarHeight - INSIDE_LABEL_FONT_SIZE) / 2,
+          MIN_BAR_VERTICAL_PADDING,
+          MAX_BAR_VERTICAL_PADDING
+        );
+  const barHeight =
+    data.length === 0
+      ? 32
+      : INSIDE_LABEL_FONT_SIZE + barVerticalPadding * 2;
+  const gap =
+    gapCount > 0
+      ? (stackHeight - data.length * barHeight) / gapCount
+      : 0;
+  const topOffset = stackTopY + gap;
+  const axisToBarGap = Math.max(gap, 0);
+  const barStartX = AXIS_ORIGIN_X + axisToBarGap;
+  const barMaxWidth = Math.max(BAR_END_X - barStartX, minBarLength);
+  const zeroX = barStartX + ((0 - resolvedMinValue) / domainSpan) * barMaxWidth;
 
   const hasData = data.length > 0;
 
@@ -272,7 +306,7 @@ export function BarHorizontal({
       className={cn("block", className)}
       height={height}
       role="img"
-      viewBox={`0 0 ${VIEWBOX_WIDTH} ${VIEWBOX_HEIGHT}`}
+      viewBox={`0 0 ${VIEWBOX_WIDTH} ${viewBoxHeight}`}
       width={width}
       xmlns="http://www.w3.org/2000/svg"
       {...props}
@@ -281,38 +315,38 @@ export function BarHorizontal({
 
       <g fill="none" stroke={AXIS_STROKE} strokeLinecap="round" strokeLinejoin="round">
         <path d={pointsToPath([
-          { x: AXIS_ORIGIN_X, y: AXIS_ORIGIN_Y },
-          { x: 114.69, y: 165.83 },
-          { x: 191.81, y: 167.64 },
-          { x: X_AXIS_END_X, y: AXIS_ORIGIN_Y },
+          { x: AXIS_ORIGIN_X, y: axisOriginY },
+          { x: 114.69, y: sy(165.83) },
+          { x: 191.81, y: sy(167.64) },
+          { x: X_AXIS_END_X, y: axisOriginY },
         ])} />
         <path d={pointsToPath([
-          { x: AXIS_ORIGIN_X, y: AXIS_ORIGIN_Y },
-          { x: 149.78, y: 164.9 },
-          { x: 260.82, y: 163.89 },
-          { x: X_AXIS_END_X, y: AXIS_ORIGIN_Y },
+          { x: AXIS_ORIGIN_X, y: axisOriginY },
+          { x: 149.78, y: sy(164.9) },
+          { x: 260.82, y: sy(163.89) },
+          { x: X_AXIS_END_X, y: axisOriginY },
         ])} />
         <path d={pointsToPath([
-          { x: AXIS_ORIGIN_X, y: AXIS_ORIGIN_Y },
-          { x: 45.14, y: 128.39 },
-          { x: 43.39, y: 93.77 },
-          { x: AXIS_ORIGIN_X, y: Y_AXIS_END_Y },
+          { x: AXIS_ORIGIN_X, y: axisOriginY },
+          { x: 45.14, y: sy(128.39) },
+          { x: 43.39, y: sy(93.77) },
+          { x: AXIS_ORIGIN_X, y: yAxisEndY },
         ])} />
         <path d={pointsToPath([
-          { x: AXIS_ORIGIN_X, y: AXIS_ORIGIN_Y },
-          { x: 38.78, y: 133.09 },
-          { x: 38.89, y: 99.71 },
-          { x: AXIS_ORIGIN_X, y: Y_AXIS_END_Y },
+          { x: AXIS_ORIGIN_X, y: axisOriginY },
+          { x: 38.78, y: sy(133.09) },
+          { x: 38.89, y: sy(99.71) },
+          { x: AXIS_ORIGIN_X, y: yAxisEndY },
         ])} />
         <path d={pointsToPath([
-          { x: 351.88, y: 163.5 },
-          { x: 358.88, y: AXIS_ORIGIN_Y },
-          { x: 351.88, y: 170.5 },
+          { x: 351.88, y: sy(163.5) },
+          { x: 358.88, y: axisOriginY },
+          { x: 351.88, y: sy(170.5) },
         ])} />
         <path d={pointsToPath([
-          { x: 36.5, y: 15.12 },
-          { x: AXIS_ORIGIN_X, y: 8.12 },
-          { x: 43.5, y: 15.12 },
+          { x: 36.5, y: sy(15.12) },
+          { x: AXIS_ORIGIN_X, y: sy(8.12) },
+          { x: 43.5, y: sy(15.12) },
         ])} />
       </g>
 
@@ -320,13 +354,13 @@ export function BarHorizontal({
         <g>
           {data.map((datum, index) => {
             const scaledStart =
-              BAR_START_X +
+              barStartX +
               ((Math.min(datum.value, 0) - resolvedMinValue) / domainSpan) *
-                BAR_MAX_WIDTH;
+                barMaxWidth;
             const scaledEnd =
-              BAR_START_X +
+              barStartX +
               ((Math.max(datum.value, 0) - resolvedMinValue) / domainSpan) *
-                BAR_MAX_WIDTH;
+                barMaxWidth;
 
             const naturalWidth = Math.abs(scaledEnd - scaledStart);
             const barWidth =
@@ -334,7 +368,7 @@ export function BarHorizontal({
             const barX =
               datum.value >= 0
                 ? scaledStart
-                : clamp(scaledEnd - barWidth, BAR_START_X, BAR_START_X + BAR_MAX_WIDTH);
+                : clamp(scaledEnd - barWidth, barStartX, barStartX + barMaxWidth);
             const barY = topOffset + index * (barHeight + gap);
 
             const { fillPath, strokePath } = buildBarPolygon(
@@ -350,9 +384,9 @@ export function BarHorizontal({
             const textColor = datum.textColor ?? getContrastingTextColor(fill);
             const secondaryLabel =
               formatSecondaryLabel?.(datum, index) ?? datum.secondaryLabel ?? "";
-            const primaryWidth = estimateTextWidth(datum.primaryLabel);
-            const secondaryWidth = estimateTextWidth(secondaryLabel);
-            const insidePadding = 12;
+            const primaryWidth = estimateTextWidth(datum.primaryLabel, INSIDE_LABEL_FONT_SIZE);
+            const secondaryWidth = estimateTextWidth(secondaryLabel, OUTSIDE_LABEL_FONT_SIZE);
+            const insidePadding = BAR_INSIDE_PADDING_X;
             const gapBetweenLabels = secondaryLabel ? 16 : 0;
             const availableInsideWidth = Math.max(barWidth - insidePadding * 2, 0);
             const canFitBothInside =
@@ -385,7 +419,7 @@ export function BarHorizontal({
                     <text
                       fill={textColor}
                       fontFamily={FONT_FAMILY}
-                      fontSize="12"
+                      fontSize={INSIDE_LABEL_FONT_SIZE}
                       textAnchor="start"
                       x={insideLeftX}
                       y={textY}
@@ -396,7 +430,7 @@ export function BarHorizontal({
                       <text
                         fill={textColor}
                         fontFamily={FONT_FAMILY}
-                        fontSize="12"
+                        fontSize={INSIDE_LABEL_FONT_SIZE}
                         textAnchor="end"
                         x={insideRightX}
                         y={textY}
@@ -410,7 +444,7 @@ export function BarHorizontal({
                     <text
                       fill={textColor}
                       fontFamily={FONT_FAMILY}
-                      fontSize="12"
+                      fontSize={INSIDE_LABEL_FONT_SIZE}
                       textAnchor="start"
                       x={insideLeftX}
                       y={textY}
@@ -419,9 +453,9 @@ export function BarHorizontal({
                     </text>
                     {secondaryLabel ? (
                       <text
-                        fill="#4d4d4d"
+                        fill={CHART_TEXT_COLOR}
                         fontFamily={FONT_FAMILY}
-                        fontSize="12"
+                        fontSize={OUTSIDE_LABEL_FONT_SIZE}
                         textAnchor={outsideAnchor}
                         x={secondaryOutsideX}
                         y={textY}
@@ -433,9 +467,9 @@ export function BarHorizontal({
                 ) : (
                   <>
                     <text
-                      fill="#1f1f1f"
+                      fill={CHART_TEXT_COLOR}
                       fontFamily={FONT_FAMILY}
-                      fontSize="12"
+                      fontSize={OUTSIDE_LABEL_FONT_SIZE}
                       textAnchor={outsideAnchor}
                       x={primaryOutsideX}
                       y={textY - (secondaryLabel ? 6 : 0)}
@@ -444,9 +478,9 @@ export function BarHorizontal({
                     </text>
                     {secondaryLabel ? (
                       <text
-                        fill="#4d4d4d"
+                        fill={CHART_TEXT_COLOR}
                         fontFamily={FONT_FAMILY}
-                        fontSize="12"
+                        fontSize={OUTSIDE_LABEL_FONT_SIZE}
                         textAnchor={outsideAnchor}
                         x={secondaryOutsideX}
                         y={textY + 9}
@@ -463,8 +497,8 @@ export function BarHorizontal({
           {resolvedMinValue < 0 && resolvedMaxValue > 0 ? (
             <path
               d={pointsToPath([
-                { x: zeroX, y: PLOT_TOP_Y - 4 },
-                { x: zeroX + 0.8, y: PLOT_BOTTOM_Y + 6 },
+                { x: zeroX, y: stackTopY - 4 },
+                { x: zeroX + 0.8, y: stackBottomY + 6 },
               ])}
               opacity="0.35"
               stroke={AXIS_STROKE}
@@ -474,12 +508,12 @@ export function BarHorizontal({
         </g>
       ) : (
         <text
-          fill="#5b5b5b"
+          fill={CHART_TEXT_COLOR}
           fontFamily={FONT_FAMILY}
-          fontSize="12"
+          fontSize={EMPTY_STATE_FONT_SIZE}
           textAnchor="middle"
-          x={BAR_START_X + BAR_MAX_WIDTH / 2}
-          y={PLOT_TOP_Y + plotHeight / 2}
+          x={barStartX + barMaxWidth / 2}
+          y={stackTopY + stackHeight / 2}
         >
           {emptyStateLabel}
         </text>
@@ -487,12 +521,12 @@ export function BarHorizontal({
 
       {xAxisLabel ? (
         <text
-          fill="#111111"
+          fill={CHART_TEXT_COLOR}
           fontFamily={FONT_FAMILY}
-          fontSize="12"
+          fontSize={AXIS_LABEL_FONT_SIZE}
           textAnchor="middle"
           x={AXIS_ORIGIN_X + (X_AXIS_END_X - AXIS_ORIGIN_X) / 2}
-          y={193}
+          y={sy(193)}
         >
           {xAxisLabel}
         </text>
@@ -500,13 +534,13 @@ export function BarHorizontal({
 
       {yAxisLabel ? (
         <text
-          fill="#111111"
+          fill={CHART_TEXT_COLOR}
           fontFamily={FONT_FAMILY}
-          fontSize="12"
+          fontSize={AXIS_LABEL_FONT_SIZE}
           textAnchor="middle"
-          transform="rotate(-90 17 90)"
+          transform={`rotate(-90 17 ${sy(90)})`}
           x={17}
-          y={90}
+          y={sy(90)}
         >
           {yAxisLabel}
         </text>

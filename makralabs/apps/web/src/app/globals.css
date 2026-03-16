@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "@makralabs/ui/styles.css";
+@source "../../../packages/ui/src";
 
 /*
  * Makra Design System - CSS Variables

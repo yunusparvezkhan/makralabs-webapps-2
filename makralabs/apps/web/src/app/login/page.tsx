@@ -1,13 +1,13 @@
 "use client";
 
+import { FormEvent, Suspense, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { FormEvent, useEffect, useMemo, useState } from "react";
 import { DashboardAuthPageShell } from "@/components/dashboard-auth-page-shell";
 import { env } from "@/lib/env";
 import { useDashboardAuth } from "@/providers/dashboard-auth-provider";
 
-export default function LoginPage() {
+function LoginContent() {
   const { login, isAuthenticated, isReady } = useDashboardAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -94,5 +94,13 @@ export default function LoginPage() {
         </a>
       </form>
     </DashboardAuthPageShell>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={null}>
+      <LoginContent />
+    </Suspense>
   );
 }

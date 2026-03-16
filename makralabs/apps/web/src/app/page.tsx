@@ -45,23 +45,29 @@ repos_data = await makra.extract(
 
 const chartData = [
     {
+        primaryLabel: "Makra",
+        secondaryLabel: "1224",
+        value: 1224,
+        bgColor: "#5FB673",
+    },
+    {
         primaryLabel: "RAG",
-        secondaryLabel: "11,624 tokens avg. per request",
-        value: 11624,
-        bgColor: "#FFF2CC",
+        secondaryLabel: "2,145",
+        value: 2145,
+        bgColor: "#F9F6C4",
     },
     {
         primaryLabel: "Page-index",
-        secondaryLabel: "8,164 tokens avg. per request",
-        value: 8164,
-        bgColor: "#3788d8",
+        secondaryLabel: "2,224",
+        value: 2224,
+        bgColor: "#89D4FF",
     },
     {
-        primaryLabel: "Makra",
-        secondaryLabel: "4,224 tokens avg. per request",
-        value: 4224,
-        bgColor: "#5FB673",
-    },
+        primaryLabel: "Long-context LLMs",
+        secondaryLabel: "5,164",
+        value: 5164,
+        bgColor: "#ffb703",
+    }
 ];
 
 export default function Home() {
@@ -251,7 +257,7 @@ export default function Home() {
                             <BarHorizontal
                                 data={chartData}
                                 title="Comparing How You Retrieve Data"
-                                xAxisLabel="Extraction Efficiency"
+                                xAxisLabel="avg. input tokens per request"
                                 yAxisLabel=""
                                 width={700}
                                 height={420}

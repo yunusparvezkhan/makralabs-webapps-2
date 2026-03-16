@@ -1,8 +1,8 @@
 "use client";
 
+import { Suspense, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
 import { useDashboardAuth } from "@/providers/dashboard-auth-provider";
 
 function readTokenFromHash(hash: string) {
@@ -11,7 +11,7 @@ function readTokenFromHash(hash: string) {
   return params.get("access_token") || params.get("token");
 }
 
-export default function AuthCallbackPage() {
+function AuthCallbackContent() {
   const { setAccessToken } = useDashboardAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -57,5 +57,13 @@ export default function AuthCallbackPage() {
         )}
       </section>
     </main>
+  );
+}
+
+export default function AuthCallbackPage() {
+  return (
+    <Suspense fallback={null}>
+      <AuthCallbackContent />
+    </Suspense>
   );
 }

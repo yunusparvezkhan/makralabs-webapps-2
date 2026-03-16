@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useRef } from "react";
 import { usePathname } from "next/navigation";
+import { IoDocumentText } from "react-icons/io5";
 import type { DocsPage, DocsVersion } from "@/lib/docs/types";
 import { buildDocsPath, getDocsPathFromPathname } from "@/lib/docs/utils";
 
@@ -99,7 +100,7 @@ function Icon({ name }: { name?: string }) {
         </svg>
       );
     default:
-      return <span className="docs-nav-icon docs-nav-icon-dot" aria-hidden="true" />;
+      return <IoDocumentText className="docs-nav-icon" aria-hidden="true" />;
   }
 }
 
