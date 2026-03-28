@@ -13,6 +13,7 @@
     "check-types": "pnpm type-check",
     "clean": "rm -rf .next"
   },
+  "packageManager": "pnpm@10.5.2",
   "dependencies": {
     "@makralabs/types": "workspace:*",
     "@makralabs/ui": "workspace:*",
