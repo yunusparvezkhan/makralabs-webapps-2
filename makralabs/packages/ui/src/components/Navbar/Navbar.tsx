@@ -24,13 +24,13 @@ export interface NavbarProps {
 }
 
 export const DEFAULT_NAVBAR_LINKS: NavbarLink[] = [
-    { href: "http://localhost:3001", label: "Docs", newTab: false },
-    {
-        href: "http://localhost:3000/playground",
-        label: "Playground",
-        newTab: false,
-    },
-    { href: "http://localhost:3000/pricing", label: "Pricing", newTab: false },
+    // { href: "http://localhost:3001", label: "Docs", newTab: false },
+    // {
+    //     href: "http://localhost:3000/playground",
+    //     label: "Playground",
+    //     newTab: false,
+    // },
+    // { href: "http://localhost:3000/pricing", label: "Pricing", newTab: false },
 ];
 
 export const DOCS_NAVBAR_LINKS: NavbarLink[] = [
@@ -189,11 +189,11 @@ export function Navbar({
                         </svg>
                     </a>
 
-                    <a href={authHref} className="makra-navbar__cta" style={{
+                    {/* <a href={authHref} className="makra-navbar__cta" style={{
                       marginLeft: 0
                     }}>
                         {isSignedIn ? "Dashboard" : "Sign In"}
-                    </a>
+                    </a> */}
                 </div>
             </div>
         </nav>

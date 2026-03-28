@@ -17,8 +17,9 @@ import dynamic from "next/dynamic";
 
 // Import BarHorizontal dynamically to avoid SSR issues (since it may use window)
 const BarHorizontal = dynamic(
-    () => import("@/components/charts/BarHorizontal").then((mod) => mod.default),
-    { ssr: false }
+    () =>
+        import("@/components/charts/BarHorizontal").then((mod) => mod.default),
+    { ssr: false },
 );
 
 const subscribe = () => () => {};
@@ -46,33 +47,37 @@ repos_data = await makra.extract(
 const chartData = [
     {
         primaryLabel: "Makra",
-        secondaryLabel: "1224",
+        secondaryLabel: "1.2k",
         value: 1224,
-        bgColor: "#5FB673",
+        bgColor: "#99d98c",
     },
     {
         primaryLabel: "RAG",
-        secondaryLabel: "2,145",
+        secondaryLabel: "2.1k",
         value: 2145,
         bgColor: "#F9F6C4",
     },
     {
         primaryLabel: "Page-index",
-        secondaryLabel: "2,224",
+        secondaryLabel: "2.2k",
         value: 2224,
-        bgColor: "#89D4FF",
+        bgColor: "#90caf9",
     },
     {
         primaryLabel: "Long-context LLMs",
-        secondaryLabel: "5,164",
+        secondaryLabel: "5.1k",
         value: 5164,
-        bgColor: "#ffb703",
-    }
+        bgColor: "#ffbc85",
+    },
 ];
 
 export default function Home() {
     const editorRef = useRef<HTMLDivElement>(null);
-    const isClient = useSyncExternalStore(subscribe, () => true, () => false);
+    const isClient = useSyncExternalStore(
+        subscribe,
+        () => true,
+        () => false,
+    );
     const email = isClient ? ["ping", "makralabs.org"].join("@") : null;
     const [copied, setCopied] = useState(false);
 
@@ -157,7 +162,9 @@ export default function Home() {
                         <div className="flex items-center gap-3 mb-6 pb-2">
                             <span
                                 className="h-px w-8 inline-block"
-                                style={{ background: "var(--makra-primary-green)" }}
+                                style={{
+                                    background: "var(--makra-primary-green)",
+                                }}
                             />
                             <span
                                 className="text-xs font-semibold uppercase"
@@ -166,38 +173,77 @@ export default function Home() {
                                     letterSpacing: "0.2em",
                                 }}
                             >
-                                For AI Developers
+                                Makra
                             </span>
                         </div>
 
-                        {/* Main Headline */}
                         <h1
-                            className="font-bold tracking-tight text-gray-600"
+                            className="text-[34px] font-bold tracking-tight text-gray-600 sm:text-[42px]"
                             style={{
-                                fontSize: "3.25rem",
-                                lineHeight: 1.08,
+                                lineHeight: 0.8,
                             }}
                         >
-                            Save Your Tokens
-                            <br />
-                            <span style={{ color: "var(--makra-primary-green)" }}>
-                                Using Makra
+                            <span
+                                className="whitespace-nowrap text-[40px] sm:text-[51px]"
+                                style={{
+                                    display: "inline-block",
+                                }}
+                            >
+                                The&nbsp;Web,&nbsp;
+                                <span
+                                    style={{
+                                        color: "var(--makra-primary-green)",
+                                    }}
+                                >
+                                    Memoized
+                                </span>
                             </span>
+                            <br />
+                            <span
+                                style={{
+                                    color: "var(--makra-primary-greens)",
+                                    fontSize: 21,
+                                    paddingLeft: 1,
+                                }}
+                            >
+                                A&nbsp;Framework&nbsp;for&nbsp;building&nbsp;
+                                <span
+                                    className="hover:underline cursor-pointer"
+                                    style={{
+                                        color: "var(--makra-primary-green)",
+                                    }}
+                                >
+                                    Internet&nbsp;Native&nbsp;AI&nbsp;Agents
+                                </span>{" "}
+                            </span>
+                            {/*<span
+                                style={{
+                                    color: "var(--makra-primary-greens)",
+                                    fontSize: 23.5,
+                                }}
+                            >
+                                AI Agents, that are truely <span style={{ color: "var(--makra-primary-greens)" }}>Internet Native</span>
+                            </span>*/}
                         </h1>
 
-                        {/* Description */}
                         <p
                             className="leading-relaxed py-2 pt-4"
                             style={{
                                 fontSize: "0.95rem",
                                 color: "var(--makra-foreground-dark-200)",
-                                maxWidth: "28rem",
+                                maxWidth: "31rem",
+                                marginTop: "5px",
+                                // border: "1px solid red",
                             }}
                         >
-                            Why dump raw HTML into the context window, when you
-                            can get the same quality results with <strong>retrieval</strong>?
+                            {/* Why dump raw HTML into the context window, when you
+                            can get the same quality results with{" "}
+                            <strong>retrieval</strong>? */}
+                            We're building Makra, a memory layer between the web
+                            and your AI agents. We handle the context so your
+                            agents can focus on the data.
                         </p>
-                        <p
+                        {/* <p
                             className="leading-relaxed py-2"
                             style={{
                                 fontSize: "0.95rem",
@@ -208,7 +254,7 @@ export default function Home() {
                             Makra is a memory layer between the web and your AI
                             agents. We handle the context, so your agents can
                             focus on the data.
-                        </p>
+                        </p> */}
                         <p
                             className="leading-relaxed py-2"
                             style={{
@@ -225,7 +271,9 @@ export default function Home() {
                                     <a
                                         href={`mailto:${email}`}
                                         className="font-medium old-school-link"
-                                        style={{ color: "var(--makra-primary-green)" }}
+                                        style={{
+                                            color: "var(--makra-primary-green)",
+                                        }}
                                     >
                                         {email}
                                     </a>
@@ -238,7 +286,9 @@ export default function Home() {
                                                 : "var(--makra-foreground-dark-200)",
                                             transition: "color 0.2s",
                                         }}
-                                        title={copied ? "Copied!" : "Copy email"}
+                                        title={
+                                            copied ? "Copied!" : "Copy email"
+                                        }
                                     >
                                         {copied ? (
                                             <FiCheck size={14} />
@@ -257,7 +307,7 @@ export default function Home() {
                             <BarHorizontal
                                 data={chartData}
                                 title="Comparing How You Retrieve Data"
-                                xAxisLabel="avg. input tokens per request"
+                                xAxisLabel="avg. input tokens consumed (our initial benchmarks)"
                                 yAxisLabel=""
                                 width={700}
                                 height={420}
