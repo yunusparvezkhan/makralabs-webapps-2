@@ -1,11 +1,10 @@
 # MakraLabs Monorepo
 
-Monorepo containing multiple Next.js applications and shared packages.
+Monorepo containing the unified Next.js web application and shared packages.
 
 ## Apps
 
 - `@makralabs/web`: main app (`apps/web`, port `3000`)
-- `@makralabs/docs`: docs app (`apps/docs`, port `3001`)
 
 ## Packages
 
@@ -28,7 +27,6 @@ pnpm dev
 ```bash
 pnpm dev
 pnpm dev:web
-pnpm dev:docs
 pnpm build
 pnpm lint
 pnpm type-check
