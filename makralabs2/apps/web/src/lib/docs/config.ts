@@ -1,10 +1,9 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import type { DocsConfig, DocsPage, DocsSection, DocsTab, DocsVersion } from "./types";
 
 const CONFIG_FILENAME = "docs-config.yaml";
-const DOCS_APP_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../..");
+const DOCS_APP_ROOT = process.cwd();
 const DOCS_ROUTE_PREFIX = "/docs";
 
 export function resolveDocsAppPath(...segments: string[]): string {
