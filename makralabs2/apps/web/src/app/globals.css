@@ -1,0 +1,1235 @@
+@import "tailwindcss";
+@import "@makralabs/ui/styles.css";
+@import "./docs.css";
+@source "../../../packages/ui/src";
+
+/*
+ * Makra Design System - CSS Variables
+ */
+:root {
+    /* Background - Light Theme */
+    --makra-background-light: #fff;
+    --makra-background-light-100: #ffffff;
+    --makra-background-light-200: #d6d0bc;
+
+    /* Background - Dark Theme */
+    --makra-background-dark: #434343;
+    --makra-background-dark-100: #5a5a5a;
+    --makra-background-dark-200: #2b2b2b;
+
+    /* Foreground (Text) - Light colors for dark backgrounds */
+    --makra-foreground-light: #faf3dd;
+    --makra-foreground-light-100: #ffffff;
+    --makra-foreground-light-200: #d6d0bc;
+
+    /* Foreground (Text) - Dark colors for light backgrounds */
+    --makra-foreground-dark: #2b2b2b;
+    --makra-foreground-dark-100: #434343;
+    --makra-foreground-dark-200: #5a5a5a;
+
+    /* Foreground - Semantic */
+    --makra-foreground-success: #41743a;
+    --makra-foreground-warning: #b8860b;
+    --makra-foreground-error: #a63d40;
+
+    /* Primary Green */
+    --makra-primary-green: #41743a;
+    --makra-primary-green-100: #5a9a50;
+    --makra-primary-green-200: #2d5228;
+    --makra-copy-size: 0.875rem;
+}
+
+/*
+ * Makra Global Styles
+ */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+}
+
+html {
+    background: #ffffff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    background: #ffffff;
+    color: var(--makra-foreground-dark);
+    font-size: var(--makra-copy-size);
+    line-height: 1.5;
+    font-family: var(--font-open-sans, ui-sans-serif, system-ui, sans-serif);
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+a {
+    color: inherit;
+    cursor: pointer;
+}
+
+a:hover {
+    text-decoration: none;
+    color: var(--makra-primary-green);
+}
+
+.home-hero-copy {
+    width: min(100%, 42rem);
+    max-width: 42rem;
+    min-width: 0;
+    container-type: inline-size;
+}
+
+.home-hero-headline {
+    font-size: 3.25rem;
+    font-size: min(3.25rem, 9cqi);
+    line-height: 1.08;
+}
+
+.home-hero-headline__line {
+    display: block;
+    white-space: nowrap;
+}
+
+@media (min-width: 1024px) {
+    .home-hero-copy {
+        flex: 1 1 42rem;
+    }
+}
+
+@media (max-width: 1023px) {
+    .home-hero-section {
+        align-items: center;
+        min-height: 100svh;
+        padding-top: 4.5rem;
+        padding-bottom: 3rem;
+    }
+
+    .home-hero-layout {
+        align-items: center;
+        justify-content: center;
+        gap: clamp(2.25rem, 6svh, 3.5rem);
+    }
+
+    .home-hero-copy {
+        align-items: center;
+        text-align: center;
+    }
+
+    .home-hero-copy > p {
+        margin-inline: auto;
+    }
+
+    .home-hero-copy > div:first-child {
+        justify-content: center;
+    }
+
+    .home-hero-chart {
+        justify-content: center;
+        width: 100%;
+        margin-bottom: 0;
+    }
+
+    .home-hero-chart__inner {
+        max-width: min(100%, 560px);
+    }
+
+    .home-hero-chart__inner svg {
+        width: 100%;
+        height: auto;
+    }
+}
+
+.text-primary-green {
+    color: var(--makra-primary-green);
+}
+
+.old-school-link {
+    color: var(--makra-primary-green);
+}
+.old-school-link:hover {
+    color: var(--makra-primary-green);
+    text-decoration: underline;
+}
+
+.contact-page {
+    display: flex;
+    min-height: 100vh;
+    min-height: 100svh;
+    align-items: center;
+    justify-content: center;
+    background: var(--makra-background-light);
+    padding: 7rem 0 5rem;
+}
+
+.contact-page__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.contact-page__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    color: var(--makra-primary-green);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.contact-page__eyebrow-line {
+    display: inline-block;
+    width: 2rem;
+    height: 1px;
+    background: currentColor;
+}
+
+.contact-page__headline {
+    width: min(100%, 42rem);
+    max-width: 42rem;
+    margin: 0;
+    color: var(--makra-foreground-dark-200);
+    font-weight: 700;
+    letter-spacing: 0;
+    white-space: nowrap;
+}
+
+.contact-page__copy {
+    max-width: 28rem;
+    margin: 1rem 0 0;
+    color: var(--makra-foreground-dark-200);
+    font-size: 0.95rem;
+    line-height: 1.625;
+}
+
+.contact-page__email-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+}
+
+.contact-page__email {
+    color: var(--makra-primary-green);
+}
+
+.contact-page__copy-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 0;
+    border-radius: 0.25rem;
+    background: transparent;
+    color: var(--makra-foreground-dark-200);
+    cursor: pointer;
+    padding: 0.25rem;
+    transition: color 0.2s ease;
+    vertical-align: middle;
+}
+
+.contact-page__copy-button:hover,
+.contact-page__copy-button:focus-visible {
+    color: var(--makra-primary-green);
+    outline: none;
+}
+
+.contact-page__copy-button--copied {
+    color: var(--makra-primary-green);
+}
+
+@media (max-width: 640px) {
+    .contact-page {
+        padding: 6rem 0 4rem;
+    }
+}
+
+
+.default-link {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    color: var(--makra-primary-green);
+}
+
+.default-link:hover {
+    color: var(--makra-primary-green);
+    text-decoration: underline;
+}
+
+
+.makra-web-btn-green {
+    background: var(--makra-primary-green);
+    color: white;
+    position: relative;
+    overflow: hidden;
+    border: none;
+    transition:
+        background 0.25s,
+        color 0.25s;
+    z-index: 1;
+}
+
+.makra-web-btn-green::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.5) 40%,
+        rgba(255, 255, 255, 0.15) 60%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: skewX(-20deg);
+    transition: left 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    z-index: 2;
+}
+
+.makra-web-btn-green:hover::before,
+.makra-web-btn-green:focus-visible::before {
+    left: 120%;
+}
+
+.makra-web-btn-green:hover,
+.makra-web-btn-green:focus-visible {
+    background: var(--makra-primary-green-100);
+    color: white;
+}
+
+/*
+ * Tailwind v4 Theme Configuration
+ */
+@theme inline {
+    /* Colors - mapped from CSS variables */
+    --color-background: var(--makra-background-light);
+    --color-foreground: var(--makra-foreground-dark);
+
+    /* Background palette */
+    --color-background-light: var(--makra-background-light);
+    --color-background-light-100: var(--makra-background-light-100);
+    --color-background-light-200: var(--makra-background-light-200);
+    --color-background-dark: var(--makra-background-dark);
+    --color-background-dark-100: var(--makra-background-dark-100);
+    --color-background-dark-200: var(--makra-background-dark-200);
+
+    /* Foreground palette */
+    --color-foreground-light: var(--makra-foreground-light);
+    --color-foreground-light-100: var(--makra-foreground-light-100);
+    --color-foreground-light-200: var(--makra-foreground-light-200);
+    --color-foreground-dark: var(--makra-foreground-dark);
+    --color-foreground-dark-100: var(--makra-foreground-dark-100);
+    --color-foreground-dark-200: var(--makra-foreground-dark-200);
+
+    /* Semantic colors */
+    --color-success: var(--makra-foreground-success);
+    --color-warning: var(--makra-foreground-warning);
+    --color-error: var(--makra-foreground-error);
+
+    /* Primary colors */
+    --color-primary: var(--makra-primary-green);
+    --color-primary-100: var(--makra-primary-green-100);
+    --color-primary-200: var(--makra-primary-green-200);
+
+    /* Font families */
+    --font-sans: var(--font-open-sans, ui-sans-serif, system-ui, sans-serif);
+    --font-serif: var(--font-cormorant, ui-serif, Georgia, serif);
+    --font-mono: ui-monospace, monospace;
+
+    /* shadcn/ui variables */
+    --background: var(--makra-background-light);
+    --foreground: var(--makra-foreground-dark);
+    --muted: var(--makra-background-light-200);
+    --muted-foreground: var(--makra-foreground-dark-100);
+    --primary: var(--makra-primary-green);
+    --primary-foreground: var(--makra-foreground-light);
+    --ring: var(--makra-primary-green);
+    --border: var(--makra-background-light-200);
+    --input: var(--makra-background-light-200);
+}
+
+/* .grainy-background {
+  position: relative;
+  overflow: hidden;
+}
+
+.grainy-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.2;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}
+
+.grainy-background > * {
+  position: relative;
+  z-index: 2;
+} */
+
+/* .grainy-background {
+    position: relative;
+    background-color: #1a1a1a;
+}
+
+.grainy-background::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(255, 255, 255, 0.03) 2px,
+            rgba(255, 255, 255, 0.03) 4px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 2px,
+            rgba(255, 255, 255, 0.03) 2px,
+            rgba(255, 255, 255, 0.03) 4px
+        );
+    filter: contrast(150%) brightness(1000%);
+    mix-blend-mode: overlay;
+    opacity: 0.3;
+    pointer-events: none;
+} */
+/* 
+
+.grainy-background {
+    position: relative;
+}
+
+.grainy-background::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAAElBMVEUAAAAAAAAAAAAAAAAAAAAAAADgKxmiAAAABnRSTlMGnSCMOu6atb8AAAAeSURBVHgBY2AYBaNgFIyCUTAKRsEoGAWjYBQMdwAAA6QAAcnKbjoAAAAASUVORK5CYII=");
+    background-repeat: repeat;
+    opacity: 0.15;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+} */
+
+.grainy-background {
+    position: relative;
+    background-color: #1a1a1a;
+}
+
+.grainy-background::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 8px,
+            rgba(255, 255, 255, 0.05) 8px,
+            rgba(255, 255, 255, 0.05) 12px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 8px,
+            rgba(255, 255, 255, 0.05) 8px,
+            rgba(255, 255, 255, 0.05) 12px
+        );
+    filter: contrast(150%) brightness(1000%);
+    mix-blend-mode: overlay;
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+/*
+ * Dashboard App Styles
+ */
+@keyframes dash-rise-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dash-page-center {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+}
+
+/* ──────────────────────────────────────────────
+ * Dashboard Auth — redesigned to match MakraLabs brand
+ * ────────────────────────────────────────────── */
+
+.dash-auth-root {
+    min-height: 100vh;
+    display: grid;
+    gap: 0;
+    grid-template-columns: 1fr;
+    background: #ffffff;
+}
+
+/* ── Left brand panel ── */
+.dash-auth-brand {
+    background: linear-gradient(160deg, #f9faf7 0%, #f1f5ef 55%, #e9efe6 100%);
+    border-bottom: 1px solid #dce3d8;
+    padding: 40px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Logo lockup */
+.dash-auth-logo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    width: fit-content;
+    color: #1c2b1a;
+}
+
+.dash-auth-logo-link:hover {
+    color: #41743a;
+}
+
+.dash-auth-logo-wordmark {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: inherit;
+}
+
+/* Brand headline */
+.dash-auth-brand-headline {
+    font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.12;
+    color: #1c2b1a;
+    margin: 0;
+}
+
+.dash-auth-brand-accent {
+    color: var(--makra-primary-green);
+}
+
+.dash-auth-brand-body {
+    font-size: 0.9rem;
+    line-height: 1.65;
+    max-width: 34ch;
+}
+
+/* Stat row */
+.dash-auth-stat-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding: 14px 0;
+    border-top: 1px solid #d4dcd0;
+    border-bottom: 1px solid #d4dcd0;
+}
+
+.dash-auth-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.dash-auth-stat-value {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #1c2b1a;
+    letter-spacing: -0.02em;
+}
+
+.dash-auth-stat-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #6b7a68;
+}
+
+.dash-auth-stat-divider {
+    width: 1px;
+    height: 32px;
+    background: #c9d5c5;
+}
+
+/* ── Right form panel ── */
+.dash-panel {
+    background: #ffffff;
+    border: 1px solid #e2e8df;
+    border-radius: 18px;
+    box-shadow: 0 4px 20px rgba(28, 43, 26, 0.07);
+}
+
+.dash-auth-panel {
+    padding: 36px 32px;
+    max-width: 520px;
+    margin-inline: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    animation: dash-rise-in 0.3s ease-out both;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.dash-auth-panel-header {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.dash-auth-panel-title {
+    font-size: 1.65rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    color: #1c2b1a;
+    margin: 0;
+}
+
+/* Eyebrow badge */
+.dash-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--makra-primary-green);
+    font-weight: 700;
+    padding: 0.3rem 0.65rem;
+    border-radius: 999px;
+    background: rgba(65, 116, 58, 0.1);
+    border: 1px solid rgba(65, 116, 58, 0.18);
+}
+
+.dash-muted {
+    color: #5e6b5c;
+    font-size: 0.875rem;
+}
+
+.dash-ghost-link {
+    font-size: 0.82rem;
+    color: #5e6b5c;
+    text-decoration: none;
+    width: fit-content;
+    transition: color 0.15s ease;
+}
+
+.dash-ghost-link:hover {
+    color: var(--makra-primary-green);
+    text-decoration: none;
+}
+
+.dash-auth-footer {
+    padding-top: 16px;
+    border-top: 1px solid #e8ede5;
+    text-align: center;
+}
+
+.dash-auth-footer a {
+    color: var(--makra-primary-green);
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.15s ease;
+}
+
+.dash-auth-footer a:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+}
+
+/* ── Form elements ── */
+.dash-form {
+    display: grid;
+    gap: 16px;
+}
+
+.dash-form-field {
+    display: grid;
+    gap: 6px;
+}
+
+.dash-form-field label {
+    font-size: 0.825rem;
+    font-weight: 600;
+    color: #2d3b2b;
+    letter-spacing: 0.01em;
+}
+
+.dash-input {
+    width: 100%;
+    border: 1px solid #d0d9cc;
+    border-radius: 10px;
+    padding: 0.7rem 0.9rem;
+    background: #fafafa;
+    color: #111827;
+    font-size: 0.95rem;
+    transition:
+        border-color 0.15s ease,
+        box-shadow 0.15s ease,
+        background 0.15s ease;
+}
+
+.dash-input::placeholder {
+    color: #a8b5a5;
+}
+
+.dash-input:hover {
+    border-color: #b0c0ab;
+    background: #ffffff;
+}
+
+.dash-input:focus {
+    outline: none;
+    border-color: var(--makra-primary-green);
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(65, 116, 58, 0.12);
+}
+
+/* ── Buttons ── */
+.dash-btn {
+    border: 0;
+    border-radius: 10px;
+    padding: 0.72rem 1.1rem;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition:
+        background 0.18s ease,
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        opacity 0.15s ease;
+    text-decoration: none;
+    letter-spacing: 0.01em;
+}
+
+.dash-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+.dash-btn-primary {
+    background: var(--makra-primary-green);
+    color: #ffffff;
+    box-shadow:
+        0 1px 2px rgba(65, 116, 58, 0.3),
+        0 4px 12px rgba(65, 116, 58, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.dash-btn-primary::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.35) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: skewX(-20deg);
+    transition: left 0.42s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.dash-btn-primary:hover:not(:disabled)::before {
+    left: 120%;
+}
+
+.dash-btn-primary:hover:not(:disabled) {
+    background: var(--makra-primary-green-100);
+    transform: translateY(-1px);
+    box-shadow:
+        0 2px 4px rgba(65, 116, 58, 0.3),
+        0 8px 20px rgba(65, 116, 58, 0.22);
+}
+
+.dash-btn-primary:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.dash-btn-neutral {
+    background: #f1f4ef;
+    color: #1c2b1a;
+    border: 1px solid #d0d9cc;
+}
+
+.dash-btn-neutral:hover:not(:disabled) {
+    background: #e8ede5;
+    border-color: #b8c8b4;
+}
+
+.dash-btn-danger {
+    background: rgba(159, 18, 57, 0.08);
+    color: #9f1239;
+    border: 1px solid rgba(159, 18, 57, 0.2);
+}
+
+.dash-btn-danger:hover:not(:disabled) {
+    background: rgba(159, 18, 57, 0.14);
+}
+
+/* ── Messages ── */
+.dash-message {
+    border-radius: 10px;
+    padding: 0.65rem 0.85rem;
+    font-size: 0.875rem;
+    border: 1px solid transparent;
+}
+
+.dash-message-error {
+    background: rgba(159, 18, 57, 0.06);
+    color: #9f1239;
+    border-color: rgba(159, 18, 57, 0.18);
+}
+
+.dash-message-info {
+    background: rgba(65, 116, 58, 0.08);
+    color: #2d5228;
+    border-color: rgba(65, 116, 58, 0.2);
+}
+
+.dash-dashboard-root {
+    min-height: 100vh;
+    padding: 20px;
+    background:
+        radial-gradient(
+            circle at 15% 10%,
+            rgba(15, 118, 110, 0.2),
+            transparent 38%
+        ),
+        radial-gradient(
+            circle at 90% 0%,
+            rgba(180, 83, 9, 0.15),
+            transparent 30%
+        ),
+        linear-gradient(180deg, #fefdf9 0%, #f6f4ef 58%, #eceef2 100%);
+}
+
+.dash-dashboard-shell {
+    max-width: 1120px;
+    margin: 0 auto;
+    display: grid;
+    gap: 16px;
+}
+
+.dash-dashboard-top {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px;
+    border-radius: 20px;
+    background:
+        radial-gradient(
+            circle at 16% 12%,
+            rgba(15, 118, 110, 0.2),
+            transparent 35%
+        ),
+        linear-gradient(145deg, #f9fffd 0%, #e9eff7 100%);
+    border: 1px solid #ced9e8;
+    animation: dash-rise-in 0.35s ease-out both;
+}
+
+.dash-dashboard-headline {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.dash-badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.dash-badge {
+    padding: 0.28rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.dash-badge-health-ok {
+    background: rgba(22, 101, 52, 0.14);
+    color: #166534;
+}
+
+.dash-badge-health-down {
+    background: rgba(159, 18, 57, 0.12);
+    color: #9f1239;
+}
+
+.dash-badge-soft {
+    background: rgba(31, 41, 55, 0.08);
+    color: #374151;
+}
+
+.dash-dashboard-grid {
+    display: grid;
+    gap: 14px;
+    grid-template-columns: 1fr;
+}
+
+.dash-card {
+    padding: 18px;
+    display: grid;
+    gap: 14px;
+    animation: dash-rise-in 0.4s ease-out both;
+}
+
+.dash-card:nth-child(1) {
+    animation-delay: 80ms;
+}
+
+.dash-card:nth-child(2) {
+    animation-delay: 140ms;
+}
+
+.dash-card:nth-child(3) {
+    animation-delay: 200ms;
+}
+
+.dash-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.dash-card-title {
+    font-size: 1.18rem;
+    font-weight: 700;
+}
+
+.dash-balance-value {
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    line-height: 1;
+    font-weight: 800;
+    color: #062d29;
+}
+
+.dash-key-list {
+    display: grid;
+    gap: 10px;
+}
+
+.dash-key-item {
+    border: 1px solid #dde1e9;
+    border-radius: 12px;
+    padding: 12px;
+    display: grid;
+    gap: 10px;
+    background: #fff;
+}
+
+.dash-key-item-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.dash-mono-value {
+    font-family: ui-monospace, monospace;
+    font-size: 0.84rem;
+    word-break: break-all;
+}
+
+.dash-inline-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.dash-app {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr;
+    background:
+        radial-gradient(
+            circle at 15% 10%,
+            rgba(15, 118, 110, 0.2),
+            transparent 38%
+        ),
+        radial-gradient(
+            circle at 90% 0%,
+            rgba(180, 83, 9, 0.15),
+            transparent 30%
+        ),
+        linear-gradient(180deg, #fefdf9 0%, #f6f4ef 58%, #eceef2 100%);
+}
+
+.dash-sidebar {
+    border-right: 1px solid #dde1e9;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(6px);
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.dash-sidebar-brand {
+    display: grid;
+    gap: 8px;
+}
+
+.dash-sidebar-title {
+    margin: 0;
+    font-size: 1.4rem;
+}
+
+.dash-nav {
+    display: grid;
+    gap: 8px;
+}
+
+.dash-nav-link {
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    text-decoration: none;
+    color: #111827;
+    background: rgba(236, 240, 245, 0.4);
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.dash-nav-link:hover {
+    background: rgba(236, 240, 245, 0.8);
+    border-color: rgba(15, 118, 110, 0.35);
+}
+
+.dash-nav-link-active {
+    background: rgba(15, 118, 110, 0.12);
+    border-color: rgba(15, 118, 110, 0.35);
+}
+
+.dash-sidebar-footer {
+    margin-top: auto;
+    display: grid;
+    gap: 10px;
+}
+
+.dash-main {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
+.dash-topbar {
+    padding: 14px 18px;
+    border-bottom: 1px solid #dde1e9;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(6px);
+}
+
+.dash-topbar-kicker {
+    margin: 0;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #6b7280;
+    font-weight: 700;
+}
+
+.dash-topbar-path {
+    margin: 0;
+    font-family: ui-monospace, monospace;
+    font-size: 0.92rem;
+    color: #111827;
+}
+
+.dash-main-content {
+    padding: 18px;
+}
+
+.dash-table {
+    display: grid;
+    gap: 8px;
+    border: 1px solid #dde1e9;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #ffffff;
+}
+
+.dash-table-row {
+    display: grid;
+    grid-template-columns: 1.3fr 0.6fr 0.8fr;
+    gap: 10px;
+    padding: 10px 12px;
+    border-top: 1px solid #eef1f6;
+}
+
+.dash-table-row:first-child {
+    border-top: 0;
+}
+
+.dash-table-head {
+    background: rgba(236, 240, 245, 0.7);
+    font-weight: 700;
+    color: #111827;
+}
+
+.dash-log-list {
+    display: grid;
+    gap: 12px;
+}
+
+.dash-log-item {
+    border: 1px solid #dde1e9;
+    border-radius: 14px;
+    padding: 12px;
+    background: #ffffff;
+    display: grid;
+    gap: 8px;
+}
+
+.dash-log-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dash-log-message {
+    font-weight: 650;
+    color: #111827;
+}
+
+.dash-log-meta {
+    margin: 0;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: rgba(236, 240, 245, 0.7);
+    overflow: auto;
+    font-size: 0.85rem;
+}
+
+.dash-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    background: rgba(31, 41, 55, 0.08);
+    color: #374151;
+}
+
+.dash-pill-error {
+    background: rgba(159, 18, 57, 0.12);
+    color: #9f1239;
+}
+
+.dash-pill-consume,
+.dash-pill-balance,
+.dash-pill-health,
+.dash-pill-api_key_create,
+.dash-pill-api_key_delete,
+.dash-pill-api_key_probe,
+.dash-pill-auth {
+    background: rgba(15, 118, 110, 0.12);
+    color: #0b4f4a;
+}
+
+@media (min-width: 960px) {
+    /* True side-by-side 50/50 split, fills full height */
+    .dash-auth-root {
+        grid-template-columns: 1fr 1fr;
+        align-items: stretch;
+        padding: 0;
+    }
+
+    .dash-auth-brand {
+        border-bottom: none;
+        border-right: 1px solid #dce3d8;
+        padding: 60px 52px;
+        justify-content: center;
+        min-height: 100vh;
+    }
+
+    .dash-auth-panel {
+        padding: 0 52px;
+        max-width: 480px;
+        margin: auto;
+        justify-content: center;
+        min-height: 100vh;
+    }
+
+    .dash-dashboard-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .dash-span-2 {
+        grid-column: span 2;
+    }
+
+    .dash-dashboard-top {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .dash-app {
+        grid-template-columns: 280px 1fr;
+    }
+}

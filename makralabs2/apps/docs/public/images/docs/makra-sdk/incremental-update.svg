@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="390" viewBox="0 0 820 390" role="img" aria-labelledby="title desc">
+  <title id="title">Incremental PageSchema update</title>
+  <desc id="desc">Makra compares the stored schema with the current DOM, skips covered nodes, annotates only new selectors, and merges the result.</desc>
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="3" dy="4" stdDeviation="3" flood-color="#000" flood-opacity="0.14"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8.4" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#555"/>
+    </marker>
+    <style>
+      .box { stroke-width: 2.2; stroke-linejoin: round; filter: url(#shadow); }
+      .yellow { fill: #fff2cc; stroke: #b9a13b; }
+      .green { fill: #d5e8d4; stroke: #6f984e; }
+      .blue { fill: #dae8fc; stroke: #6c7fb8; }
+      .red { fill: #f8cecc; stroke: #a35b52; }
+      .arrow { fill: none; stroke: #555; stroke-width: 2.3; stroke-linecap: round; marker-end: url(#arrow); }
+      .label { font: 800 15px "Open Sans", Helvetica, Arial, sans-serif; fill: #1f2937; }
+      .small { font: 700 12px "Open Sans", Helvetica, Arial, sans-serif; fill: #4b5563; }
+    </style>
+  </defs>
+  <rect width="820" height="390" fill="#fff"/>
+
+  <path class="box green" d="M44 64 C93 60 152 61 199 64 C203 84 202 111 199 130 C151 135 94 132 44 130 C40 110 42 84 44 64 Z"/>
+  <text class="label" x="122" y="95" text-anchor="middle">Stored schema</text>
+  <text class="small" x="122" y="115" text-anchor="middle">known selectors</text>
+
+  <path class="box blue" d="M44 198 C93 194 152 195 199 198 C203 218 202 245 199 264 C151 269 94 266 44 264 C40 244 42 218 44 198 Z"/>
+  <text class="label" x="122" y="229" text-anchor="middle">Current DOM</text>
+  <text class="small" x="122" y="249" text-anchor="middle">fresh render</text>
+
+  <path class="box yellow" d="M284 131 C342 127 416 128 474 132 C478 154 477 184 474 205 C415 211 343 208 284 205 C280 183 282 153 284 131 Z"/>
+  <text class="label" x="379" y="164" text-anchor="middle">Compare coverage</text>
+  <text class="small" x="379" y="185" text-anchor="middle">stored selectors vs live DOM</text>
+
+  <path class="box green" d="M566 66 C615 62 674 63 721 66 C725 86 724 113 721 132 C673 137 616 134 566 132 C562 112 564 86 566 66 Z"/>
+  <text class="label" x="644" y="97" text-anchor="middle">Covered nodes</text>
+  <text class="small" x="644" y="117" text-anchor="middle">skip LLM</text>
+
+  <path class="box red" d="M566 164 C615 160 674 161 721 164 C725 184 724 211 721 230 C673 235 616 232 566 230 C562 210 564 184 566 164 Z"/>
+  <text class="label" x="644" y="195" text-anchor="middle">New selectors</text>
+  <text class="small" x="644" y="215" text-anchor="middle">small delta</text>
+
+  <path class="box red" d="M566 262 C615 258 674 259 721 262 C725 282 724 309 721 328 C673 333 616 330 566 328 C562 308 564 282 566 262 Z"/>
+  <text class="label" x="644" y="293" text-anchor="middle">Annotate delta</text>
+  <text class="small" x="644" y="313" text-anchor="middle">only novel nodes</text>
+
+  <path class="box green" d="M284 262 C342 258 416 259 474 263 C478 284 477 313 474 333 C415 338 343 335 284 333 C280 312 282 283 284 262 Z"/>
+  <text class="label" x="379" y="293" text-anchor="middle">Merge schema</text>
+  <text class="small" x="379" y="313" text-anchor="middle">preserve old mappings</text>
+
+  <path class="box green" d="M44 296 C93 292 152 293 199 296 C203 316 202 343 199 362 C151 367 94 364 44 362 C40 342 42 316 44 296 Z"/>
+  <text class="label" x="122" y="327" text-anchor="middle">More coverage</text>
+  <text class="small" x="122" y="347" text-anchor="middle">schema gets smarter</text>
+
+  <path class="arrow" d="M202 98 C232 110 257 126 281 149"/>
+  <path class="arrow" d="M202 232 C232 220 257 204 281 182"/>
+  <path class="arrow" d="M477 155 C504 129 535 108 563 102"/>
+  <path class="arrow" d="M477 178 C505 179 535 184 563 195"/>
+  <path class="arrow" d="M644 233 C644 242 644 251 644 259"/>
+  <path class="arrow" d="M563 296 C538 296 502 296 477 296"/>
+  <path class="arrow" d="M281 309 C255 314 229 322 202 329"/>
+</svg>

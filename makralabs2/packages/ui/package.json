@@ -1,0 +1,30 @@
+{
+  "name": "@makralabs/ui",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles.css": "./src/styles/chrome.css"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "scripts": {
+    "lint": "echo \"No package lint rules configured\"",
+    "type-check": "tsc --noEmit",
+    "build": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "@makralabs/eslint-config": "workspace:*",
+    "@makralabs/tsconfig": "workspace:*",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
+    "eslint": "^9",
+    "typescript": "5.9.2"
+  }
+}

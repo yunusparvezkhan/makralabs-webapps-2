@@ -1,0 +1,20 @@
+{
+  "name": "makralabs-monorepo",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@10.5.2",
+  "scripts": {
+    "dev": "turbo run dev --filter=@makralabs/web",
+    "dev:web": "turbo run dev --filter=@makralabs/web",
+    "build": "turbo run build --filter=@makralabs/web",
+    "build:web": "turbo run build --filter=@makralabs/web",
+    "lint": "turbo run lint --filter=@makralabs/web",
+    "type-check": "turbo run type-check --filter=@makralabs/web",
+    "test": "turbo run test",
+    "clean": "turbo run clean && rm -rf node_modules .turbo"
+  },
+  "devDependencies": {
+    "turbo": "^2.5.6",
+    "typescript": "5.9.2"
+  }
+}

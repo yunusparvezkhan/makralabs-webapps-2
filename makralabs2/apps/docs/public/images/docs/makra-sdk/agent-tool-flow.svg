@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="420" viewBox="0 0 820 420" role="img" aria-labelledby="title desc">
+  <title id="title">Agent tool flow with Makra</title>
+  <desc id="desc">An agent first calls the schema tool to discover page fields, then calls the extract tool with a focused schema to get clean JSON and answer.</desc>
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="3" dy="4" stdDeviation="3" flood-color="#000" flood-opacity="0.14"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8.4" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#555"/>
+    </marker>
+    <style>
+      .box { stroke-width: 2.2; stroke-linejoin: round; filter: url(#shadow); }
+      .yellow { fill: #fff2cc; stroke: #b9a13b; }
+      .green { fill: #d5e8d4; stroke: #6f984e; }
+      .blue { fill: #dae8fc; stroke: #6c7fb8; }
+      .purple { fill: #e1d5e7; stroke: #7f6592; }
+      .arrow { fill: none; stroke: #555; stroke-width: 2.3; stroke-linecap: round; marker-end: url(#arrow); }
+      .label { font: 800 15px "Open Sans", Helvetica, Arial, sans-serif; fill: #1f2937; }
+      .small { font: 700 12px "Open Sans", Helvetica, Arial, sans-serif; fill: #4b5563; }
+      .note { font: 800 13px "Open Sans", Helvetica, Arial, sans-serif; fill: #41743a; }
+    </style>
+  </defs>
+  <rect width="820" height="420" fill="#fff"/>
+
+  <text class="note" x="410" y="42" text-anchor="middle">Discover first. Extract narrowly.</text>
+
+  <path class="box yellow" d="M48 76 C95 72 149 73 194 76 C198 96 197 123 194 142 C148 147 96 144 48 142 C44 122 46 96 48 76 Z"/>
+  <text class="label" x="121" y="107" text-anchor="middle">User task</text>
+  <text class="small" x="121" y="127" text-anchor="middle">question + URL</text>
+
+  <path class="box purple" d="M48 232 C95 228 149 229 194 232 C198 252 197 279 194 298 C148 303 96 300 48 298 C44 278 46 252 48 232 Z"/>
+  <text class="label" x="121" y="263" text-anchor="middle">Agent</text>
+  <text class="small" x="121" y="283" text-anchor="middle">plans tool calls</text>
+
+  <path class="box blue" d="M256 232 C308 228 370 229 420 232 C424 252 423 279 420 298 C369 303 309 300 256 298 C252 278 254 252 256 232 Z"/>
+  <text class="label" x="338" y="263" text-anchor="middle">get_page_schema</text>
+  <text class="small" x="338" y="283" text-anchor="middle">discover fields</text>
+
+  <path class="box green" d="M256 76 C308 72 370 73 420 76 C424 96 423 123 420 142 C369 147 309 144 256 142 C252 122 254 96 256 76 Z"/>
+  <text class="label" x="338" y="107" text-anchor="middle">Page schema</text>
+  <text class="small" x="338" y="127" text-anchor="middle">available data</text>
+
+  <path class="box purple" d="M482 76 C534 72 596 73 646 76 C650 96 649 123 646 142 C595 147 535 144 482 142 C478 122 480 96 482 76 Z"/>
+  <text class="label" x="564" y="107" text-anchor="middle">Pick fields</text>
+  <text class="small" x="564" y="127" text-anchor="middle">relevant subset</text>
+
+  <path class="box blue" d="M482 232 C534 228 596 229 646 232 C650 252 649 279 646 298 C595 303 535 300 482 298 C478 278 480 252 482 232 Z"/>
+  <text class="label" x="564" y="263" text-anchor="middle">extract_from_page</text>
+  <text class="small" x="564" y="283" text-anchor="middle">focused schema</text>
+
+  <path class="box yellow" d="M690 232 C733 228 781 229 818 232 C822 252 821 279 818 298 C780 303 733 300 690 298 C686 278 688 252 690 232 Z"/>
+  <text class="label" x="754" y="263" text-anchor="middle">Clean JSON</text>
+  <text class="small" x="754" y="283" text-anchor="middle">small payload</text>
+
+  <path class="box yellow" d="M690 76 C733 72 781 73 818 76 C822 96 821 123 818 142 C780 147 733 144 690 142 C686 122 688 96 690 76 Z"/>
+  <text class="label" x="754" y="107" text-anchor="middle">Answer</text>
+  <text class="small" x="754" y="127" text-anchor="middle">reason on data</text>
+
+  <path class="arrow" d="M121 145 C121 168 121 206 121 229"/>
+  <path class="arrow" d="M197 265 C214 265 236 265 253 265"/>
+  <path class="arrow" d="M338 229 C338 206 338 168 338 145"/>
+  <path class="arrow" d="M423 109 C439 109 463 109 479 109"/>
+  <path class="arrow" d="M564 145 C564 168 564 206 564 229"/>
+  <path class="arrow" d="M649 265 C662 265 674 265 687 265"/>
+  <path class="arrow" d="M754 229 C754 206 754 168 754 145"/>
+</svg>
