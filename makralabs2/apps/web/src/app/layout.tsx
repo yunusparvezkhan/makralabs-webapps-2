@@ -83,9 +83,9 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/logo/192x192.png",
-    apple: "/logo/192x192.png",
-    shortcut: "/logo/192x192.png",
+    icon: [{ url: "/icon.png?v=2", sizes: "192x192", type: "image/png" }],
+    apple: [{ url: "/logo/192x192.png", sizes: "192x192", type: "image/png" }],
+    shortcut: [{ url: "/logo/192x192.png", sizes: "192x192", type: "image/png" }],
   },
   manifest: "/manifest.json",
 };
