@@ -7,7 +7,7 @@ import {
 } from "@/lib/docs/config";
 
 export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
 
 export default async function DocsHomePage() {
   const config = await loadDocsConfig();

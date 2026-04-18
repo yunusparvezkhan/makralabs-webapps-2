@@ -7,13 +7,19 @@ import {
   buildDocsPath,
   findDocsPage,
   flattenDocsPages,
+  getDocsSlugParams,
   loadDocsConfig,
   resolveDocsAppPath,
 } from "@/lib/docs/config";
 import { renderMarkdown } from "@/lib/docs/markdown";
 
 export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  return getDocsSlugParams();
+}
 
 export default async function DocsPage({
   params,

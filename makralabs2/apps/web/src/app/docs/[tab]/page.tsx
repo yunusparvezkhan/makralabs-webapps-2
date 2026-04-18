@@ -1,13 +1,19 @@
 import { notFound, redirect } from "next/navigation";
 import {
   buildDocsPath,
+  getDocsTabParams,
   getDefaultVersion,
   getTabFirstPage,
   loadDocsConfig,
 } from "@/lib/docs/config";
 
 export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  return getDocsTabParams();
+}
 
 export default async function DocsTabHomePage({
   params,

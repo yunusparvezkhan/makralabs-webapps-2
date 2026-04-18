@@ -154,6 +154,46 @@ export async function loadDocsConfig(): Promise<DocsConfig> {
   return validateConfig(parsed);
 }
 
+export async function getDocsTabParams(): Promise<Array<{ tab: string }>> {
+  const config = await loadDocsConfig();
+  const tabIds = new Set<string>();
+  for (const version of config.versions) {
+    for (const section of version.sections) {
+      tabIds.add(section.tabId);
+    }
+  }
+  return Array.from(tabIds).map((tab) => ({ tab }));
+}
+
+export async function getDocsVersionParams(): Promise<Array<{ tab: string; version: string }>> {
+  const config = await loadDocsConfig();
+  const params: Array<{ tab: string; version: string }> = [];
+  for (const version of config.versions) {
+    const tabIds = new Set(version.sections.map((section) => section.tabId));
+    for (const tab of tabIds) {
+      params.push({ tab, version: version.id });
+    }
+  }
+  return params;
+}
+
+export async function getDocsSlugParams(): Promise<Array<{ tab: string; version: string; slug: string[] }>> {
+  const config = await loadDocsConfig();
+  const params: Array<{ tab: string; version: string; slug: string[] }> = [];
+  for (const version of config.versions) {
+    for (const section of version.sections) {
+      for (const page of section.pages) {
+        params.push({
+          tab: section.tabId,
+          version: version.id,
+          slug: page.path.split("/").filter(Boolean),
+        });
+      }
+    }
+  }
+  return params;
+}
+
 export {
   getDefaultVersion,
   findVersion,
